@@ -1,11 +1,10 @@
-
 import Marquee from '@/components/Marquee';
 import SkillCard from '@/components/SkillCard';
 import {
   SiPython, SiJavascript, SiTypescript, SiHtml5, SiCss3, SiReact, SiNextdotjs,
   SiNodedotjs, SiExpress, SiFlask, SiTailwindcss, SiLangchain, SiPytorch,
   SiHuggingface, SiMongodb, SiPostgresql, SiFirebase, SiAmazon, SiDocker,
-  SiGit, SiGithub, SiVscode, SiPostman, SiLinux, SiVercel
+  SiGit, SiGithub, SiVsco, SiPostman, SiLinux, SiVercel
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 import { BrainCircuit } from 'lucide-react';
@@ -60,7 +59,7 @@ const skillsData = [
     skills: [
       { name: "Git", icon: <SiGit />, color: "#F05032" },
       { name: "GitHub", icon: <SiGithub />, color: "#FFFFFF" },
-      { name: "VS Code", icon: <SiVscode />, color: "#007ACC" },
+      { name: "VS Code", icon: <SiVsco />, color: "#007ACC" },
       { name: "Postman", icon: <SiPostman />, color: "#FF6C37" },
       { name: "Linux", icon: <SiLinux />, color: "#FCC624" },
     ],
