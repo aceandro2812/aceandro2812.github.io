@@ -1,4 +1,3 @@
-
 import { Briefcase } from "lucide-react";
 import TimelineCard from "@/components/TimelineCard";
 
@@ -68,7 +67,6 @@ const Experience = () => {
                     <TimelineCard 
                       item={item} 
                       align={isRightAligned ? 'left' : 'right'}
-                      animationDirection={isRightAligned ? 'right' : 'left'}
                     />
                   </div>
                 </div>

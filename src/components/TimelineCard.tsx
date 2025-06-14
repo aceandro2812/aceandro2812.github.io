@@ -16,26 +16,18 @@ interface ExperienceItem {
 interface TimelineCardProps {
   item: ExperienceItem;
   align: 'left' | 'right';
-  animationDirection: 'left' | 'right';
 }
 
-const TimelineCard = ({ item, align, animationDirection }: TimelineCardProps) => {
+const TimelineCard = ({ item, align }: TimelineCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { triggerOnce: true, rootMargin: '-100px 0px' });
-  
-  const animationClass = animationDirection === 'right' 
-    ? 'md:animate-slide-in-from-right' 
-    : 'md:animate-slide-in-from-left';
 
   return (
     <div
       ref={cardRef}
       className={cn(
         "opacity-0",
-        // For mobile, all cards animate from the left
-        isInView && 'animate-slide-in-from-left',
-        // For desktop, the specific animation will take precedence
-        isInView && animationClass
+        isInView && 'animate-slide-in-from-top'
       )}
     >
       <Card className={`text-left shadow-lg hover:shadow-primary/20 transition-all duration-300 border border-border/20 hover:border-primary bg-card/50 backdrop-blur-sm ${align === 'right' ? 'md:text-right' : ''}`}>
