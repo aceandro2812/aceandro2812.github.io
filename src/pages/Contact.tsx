@@ -1,7 +1,20 @@
-
 import FloatingLetters from '@/components/FloatingLetters';
-import { Mail, MessageCircle, Phone, MapPin, Sparkles, Brain, Cpu, Zap, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, MessageCircle, Phone, MapPin, Sparkles, Brain, Cpu, Zap, Github, Linkedin, Instagram, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+
+const socialLinkClasses = {
+  primary: 'border-primary/50 hover:bg-primary/10 hover:border-primary group-hover:shadow-primary/20 text-primary',
+  accent: 'border-accent/50 hover:bg-accent/10 hover:border-accent group-hover:shadow-accent/20 text-accent',
+  secondary: 'border-secondary/50 hover:bg-secondary/10 hover:border-secondary group-hover:shadow-secondary/20 text-secondary',
+};
+
+const socialLinks = [
+  { name: 'GitHub', icon: Github, href: 'https://github.com', color: 'primary' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com', color: 'accent' },
+  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com', color: 'secondary' },
+  { name: 'Facebook', icon: Facebook, href: 'https://facebook.com', color: 'primary' },
+] as const;
 
 const Contact = () => {
   return (
@@ -66,75 +79,44 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-
-            {/* Social Links */}
-            <div className="bg-gradient-to-br from-secondary/10 to-accent/10 p-8 rounded-2xl border-2 border-secondary/30 backdrop-blur-sm">
-              <h3 className="text-lg sm:text-xl font-serif font-bold text-foreground mb-6 flex items-center gap-2">
-                <Sparkles className="w-6 h-6 text-accent" />
-                Connect with me
-              </h3>
-              <div className="flex gap-4">
-                <Button size="lg" variant="outline" className="flex-1 border-2 border-primary/50 hover:bg-primary/10 hover:border-primary transition-all duration-300">
-                  <Github className="w-5 h-5 mr-2" />
-                  GitHub
-                </Button>
-                <Button size="lg" variant="outline" className="flex-1 border-2 border-accent/50 hover:bg-accent/10 hover:border-accent transition-all duration-300">
-                  <Linkedin className="w-5 h-5 mr-2" />
-                  LinkedIn
-                </Button>
-              </div>
-            </div>
           </div>
 
-          {/* AI Developer Showcase */}
-          <div className="space-y-8">
-            <div className="bg-gradient-to-br from-primary/10 to-accent/10 p-8 rounded-2xl border-2 border-primary/30 backdrop-blur-sm relative overflow-hidden">
-              {/* Animated background pattern */}
-              <div className="absolute inset-0 pattern-dots opacity-10"></div>
-              
-              <div className="relative z-10">
-                <h3 className="text-xl sm:text-2xl font-serif font-bold text-foreground mb-6 flex items-center gap-3">
-                  <Brain className="w-7 h-7 text-primary animate-pulse" />
-                  AI Expertise
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-primary/10 border border-primary/20">
-                    <span className="w-3 h-3 bg-primary rounded-full animate-pulse"></span>
-                    <span className="text-foreground/90">Machine Learning</span>
-                  </div>
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-accent/10 border border-accent/20">
-                    <span className="w-3 h-3 bg-accent rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></span>
-                    <span className="text-foreground/90">Neural Networks</span>
-                  </div>
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-secondary/10 border border-secondary/20">
-                    <span className="w-3 h-3 bg-secondary rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></span>
-                    <span className="text-foreground/90">Backend Systems</span>
-                  </div>
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-primary/10 border border-primary/20">
-                    <span className="w-3 h-3 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.6s' }}></span>
-                    <span className="text-foreground/90">AI Consulting</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Tech Stack Visualization */}
-            <div className="bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-accent/30 shadow-2xl">
-              <h3 className="text-xl sm:text-2xl font-serif font-bold text-accent mb-6 flex items-center gap-3">
-                <Cpu className="w-7 h-7 animate-pulse" />
-                Tech Arsenal
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {['Python', 'TensorFlow', 'PyTorch', 'Node.js', 'React', 'Docker'].map((tech, index) => (
-                  <div 
-                    key={tech}
-                    className="text-center p-3 rounded-lg bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/20 hover:border-accent/40 transition-all duration-300 hover:scale-105"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+          {/* Image and Social Links */}
+          <div className="flex flex-col items-center justify-center space-y-8 animate-fade-in-up">
+            <Avatar className="w-48 h-48 sm:w-64 sm:h-64 border-4 border-primary/50 shadow-2xl">
+              <AvatarImage src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" alt="Jatin Iyer" />
+              <AvatarFallback>JI</AvatarFallback>
+            </Avatar>
+            
+            <div className="flex flex-wrap justify-center gap-4">
+              {socialLinks.map((social, index) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group animate-fade-in-up"
+                    style={{ animationDelay: `${100 + index * 100}ms` }}
                   >
-                    <span className="text-foreground/90 font-medium">{tech}</span>
-                  </div>
-                ))}
-              </div>
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className={`
+                        border-2 
+                        ${socialLinkClasses[social.color]}
+                        transition-all duration-300 transform
+                        group-hover:scale-110 group-hover:shadow-lg
+                        flex items-center gap-2
+                      `}
+                    >
+                      <Icon className="w-6 h-6" />
+                      <span className="text-foreground">{social.name}</span>
+                    </Button>
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>
