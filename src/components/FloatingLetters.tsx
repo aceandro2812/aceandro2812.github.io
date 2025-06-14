@@ -14,8 +14,8 @@ const FloatingLetters = () => {
     return Array.from({ length: 40 }).map((_, i) => {
       const style: React.CSSProperties & { '--duration': string; 'animationDelay': string } = {
         left: `${Math.random() * 100}vw`,
-        '--duration': `${20 + Math.random() * 20}s`,
-        animationDelay: `${Math.random() * 20}s`,
+        '--duration': `${10 + Math.random() * 15}s`,
+        animationDelay: `${Math.random() * 10}s`,
         fontSize: `${1 + Math.random() * 1.5}rem`,
       };
       const character = SANSKRIT_LETTERS[Math.floor(Math.random() * SANSKRIT_LETTERS.length)];
@@ -28,7 +28,7 @@ const FloatingLetters = () => {
       {letters.map(({ style, character, id }) => (
         <span
           key={id}
-          className="absolute text-book-muted/20 animate-floating"
+          className="absolute text-book-muted/30 animate-floating"
           style={style}
         >
           {character}
