@@ -4,8 +4,8 @@ import SkillCard from '@/components/SkillCard';
 import {
   SiPython, SiJavascript, SiTypescript, SiHtml5, SiCss3, SiReact, SiNextdotjs,
   SiNodedotjs, SiExpress, SiFlask, SiTailwindcss, SiLangchain, SiPytorch,
-  SiHuggingface, SiMongodb, SiPostgresql, SiFirebase, SiAmazonaws, SiDocker,
-  SiGit, SiGithub, SiVisualstudiocode, SiPostman, SiLinux, SiVercel
+  SiHuggingface, SiMongodb, SiPostgresql, SiFirebase, SiAmazon, SiDocker,
+  SiGit, SiGithub, SiVisualStudioCode, SiPostman, SiLinux, SiVercel
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 import { BrainCircuit } from 'lucide-react';
@@ -50,7 +50,7 @@ const skillsData = [
       { name: "MongoDB", icon: <SiMongodb />, color: "#47A248" },
       { name: "PostgreSQL", icon: <SiPostgresql />, color: "#4169E1" },
       { name: "Firebase", icon: <SiFirebase />, color: "#FFCA28" },
-      { name: "AWS", icon: <SiAmazonaws />, color: "#FF9900" },
+      { name: "AWS", icon: <SiAmazon />, color: "#FF9900" },
       { name: "Docker", icon: <SiDocker />, color: "#2496ED" },
       { name: "Vercel", icon: <SiVercel />, color: "#FFFFFF" },
     ],
@@ -60,7 +60,7 @@ const skillsData = [
     skills: [
       { name: "Git", icon: <SiGit />, color: "#F05032" },
       { name: "GitHub", icon: <SiGithub />, color: "#FFFFFF" },
-      { name: "VS Code", icon: <SiVisualstudiocode />, color: "#007ACC" },
+      { name: "VS Code", icon: <SiVisualStudioCode />, color: "#007ACC" },
       { name: "Postman", icon: <SiPostman />, color: "#FF6C37" },
       { name: "Linux", icon: <SiLinux />, color: "#FCC624" },
     ],
