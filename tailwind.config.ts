@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -97,13 +96,17 @@ export default {
             transform: 'translateY(0)'
           },
         },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        'fade-out': {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
         'glow': {
           '0%, 100%': { 'text-shadow': '0 0 10px hsl(var(--primary)), 0 0 20px hsl(var(--primary))' },
           '50%': { 'text-shadow': '0 0 20px hsl(var(--primary)), 0 0 40px hsl(var(--primary))' },
-        },
-        'book-glow': {
-          '0%, 100%': { 'text-shadow': '0 0 10px #e6b800, 0 0 20px #e6b800' },
-          '50%': { 'text-shadow': '0 0 20px #e6b800, 0 0 40px #e6b800' },
         },
         'slide-in-from-top': {
           '0%': { opacity: '0', transform: 'translateY(-30px)' },
@@ -118,8 +121,9 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+        'fade-in': 'fade-in 0.3s ease-in-out forwards',
+        'fade-out': 'fade-out 0.3s ease-in-out forwards',
         'glow': 'glow 3s ease-in-out infinite',
-        'book-glow': 'book-glow 3s ease-in-out infinite',
         'slide-in-from-top': 'slide-in-from-top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
         'slide-out-to-top': 'slide-out-to-top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
 			}

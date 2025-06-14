@@ -1,6 +1,9 @@
 
-import { GraduationCap } from "lucide-react";
+import { useState } from 'react';
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import EducationCard from "@/components/EducationCard";
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const educationData = [
   {
@@ -24,43 +27,53 @@ const educationData = [
 ];
 
 const Education = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [animationClass, setAnimationClass] = useState('animate-fade-in');
+
+  const handleNavigation = (direction: 'prev' | 'next') => {
+    setAnimationClass('animate-fade-out');
+    
+    setTimeout(() => {
+      if (direction === 'next') {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % educationData.length);
+      } else {
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + educationData.length) % educationData.length);
+      }
+      setAnimationClass('animate-fade-in');
+    }, 300); // Duration should match fade-out animation
+  };
+
   return (
-    <div className="bg-book-bg -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-12">
-      <div className="container mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-serif font-bold text-book-accent animate-book-glow sm:text-5xl lg:text-6xl">
+    <div className="bg-background -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center min-h-[calc(100vh-theme(space.14)-6rem)]">
+      <div className="container mx-auto text-center max-w-4xl">
+        <div className="mb-12">
+          <h1 className="text-4xl font-serif font-bold text-primary animate-glow sm:text-5xl lg:text-6xl">
             My Academic Path
           </h1>
-          <p className="mt-4 text-lg text-book-muted max-w-3xl mx-auto">
+          <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
             From foundational schooling to specialized technical education.
           </p>
         </div>
-        <div className="relative max-w-5xl mx-auto">
-          <div className="absolute left-4 h-full w-1 bg-gradient-to-b from-transparent via-book-accent/30 to-book-accent/60 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
 
-          <div className="space-y-12">
-            {educationData.map((item, index) => {
-              const isRightAligned = index % 2 === 1;
-              return (
-                <div key={index} className="relative group">
-                  <div className="absolute left-4 top-1 -translate-x-1/2 md:left-1/2">
-                    <div className="z-10 w-8 h-8 rounded-full bg-book-accent border-4 border-book-bg flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_#e6b800]">
-                      <GraduationCap className="w-4 h-4 text-book-bg transition-transform duration-300 group-hover:rotate-12" />
-                    </div>
-                  </div>
-                  <div className={`pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-x-8`}>
-                    <div className={isRightAligned ? 'md:col-start-2' : ''}>
-                      <EducationCard 
-                        item={item} 
-                        align={isRightAligned ? 'left' : 'right'}
-                      />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+        <div className="relative w-full max-w-2xl mx-auto h-[22rem]">
+          <div className={cn("w-full h-full", animationClass)}>
+             <EducationCard item={educationData[currentIndex]} />
           </div>
         </div>
+        
+        <div className="flex items-center justify-center gap-4 mt-8">
+          <Button variant="outline" size="icon" onClick={() => handleNavigation('prev')} aria-label="Previous Education" disabled={animationClass === 'animate-fade-out'}>
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
+          <div className="text-sm text-muted-foreground font-mono">
+            {currentIndex + 1} / {educationData.length}
+            <p className="text-xs text-muted-foreground/70 animate-pulse">Flip the page</p>
+          </div>
+          <Button variant="outline" size="icon" onClick={() => handleNavigation('next')} aria-label="Next Education" disabled={animationClass === 'animate-fade-out'}>
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        </div>
+
       </div>
     </div>
   );
