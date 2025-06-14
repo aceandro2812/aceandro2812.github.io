@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -21,7 +22,7 @@ export default {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
 				display: ['Exo 2', 'sans-serif'],
-				sanskrit: ['Sanskrit Text', 'serif'],
+				sanskrit: ['Tiro Devanagari Sanskrit', 'serif'],
 				serif: ['Playfair Display', 'serif'],
 			},
 			colors: {
@@ -140,6 +141,12 @@ export default {
           from: { transform: 'translateY(0)' },
           to: { transform: 'translateY(calc(-100% - var(--gap)))' },
         },
+        'floating': {
+          '0%': { transform: 'translateY(100vh) rotate(0deg)', opacity: '0' },
+          '10%': { opacity: '0.5' },
+          '90%': { opacity: '0.5' },
+          '100%': { transform: 'translateY(-10vh) rotate(360deg)', opacity: '0' },
+        },
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -156,6 +163,7 @@ export default {
         'flip-in-right': 'flip-in-right 0.5s ease-in-out forwards',
         'marquee-left': 'marquee-left var(--duration, 40s) linear infinite',
         'marquee-up': 'marquee-up var(--duration, 40s) linear infinite',
+        'floating': 'floating var(--duration, 20s) linear infinite',
 			}
 		}
 	},
