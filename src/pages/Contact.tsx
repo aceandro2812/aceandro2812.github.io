@@ -6,6 +6,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 const Contact = () => {
   const [showSocials, setShowSocials] = useState(false);
   const [loadedItems, setLoadedItems] = useState<number[]>([]);
+  const [showBounce, setShowBounce] = useState(true);
 
   const socialLinks = [
     {
@@ -39,12 +40,20 @@ const Contact = () => {
   ];
 
   useEffect(() => {
+    // Stop bounce animation after 2 seconds
+    const bounceTimer = setTimeout(() => {
+      setShowBounce(false);
+    }, 2000);
+
     // Start showing socials after profile loads
-    const timer = setTimeout(() => {
+    const socialsTimer = setTimeout(() => {
       setShowSocials(true);
     }, 1500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(bounceTimer);
+      clearTimeout(socialsTimer);
+    };
   }, []);
 
   useEffect(() => {
@@ -67,24 +76,28 @@ const Contact = () => {
       </div>
 
       <div className="relative z-10 space-y-8">
-        {/* Profile Photo with Bounce Animation */}
+        {/* Profile Photo with Bounce then Glow Animation */}
         <div className="relative">
-          <div className="animate-bounce">
-            <Avatar className="w-32 h-32 mx-auto border-4 border-primary/20 shadow-2xl shadow-primary/20">
+          <div className={showBounce ? "animate-bounce" : ""}>
+            <Avatar className={`w-48 h-48 mx-auto border-4 border-primary/20 shadow-2xl shadow-primary/20 transition-all duration-1000 ${!showBounce ? 'shadow-primary/40 shadow-2xl ring-4 ring-primary/20 ring-offset-4 ring-offset-background' : ''}`}>
               <AvatarImage 
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" 
                 alt="Profile"
                 className="object-cover"
               />
-              <AvatarFallback className="text-4xl font-bold bg-gradient-to-br from-primary to-secondary text-white">
+              <AvatarFallback className="text-6xl font-bold bg-gradient-to-br from-primary to-secondary text-white">
                 AI
               </AvatarFallback>
             </Avatar>
           </div>
           
-          {/* Pulsing ring around avatar */}
-          <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping"></div>
-          <div className="absolute inset-2 rounded-full border border-secondary/20 animate-pulse"></div>
+          {/* Pulsing ring around avatar - only when not bouncing */}
+          {!showBounce && (
+            <>
+              <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping"></div>
+              <div className="absolute inset-2 rounded-full border border-secondary/20 animate-pulse"></div>
+            </>
+          )}
         </div>
 
         {/* Title and Description */}
