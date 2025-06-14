@@ -1,5 +1,5 @@
 import FloatingLetters from '@/components/FloatingLetters';
-import { Mail, MessageCircle, Phone, MapPin, Sparkles, Brain, Cpu, Zap, Github, Linkedin, Instagram, Facebook } from 'lucide-react';
+import { MessageCircle, Sparkles, Brain, Cpu, Zap, Github, Linkedin, Instagram, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
@@ -56,68 +56,49 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <div className="bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-sm p-8 rounded-2xl border-2 border-primary/30 shadow-2xl hover:shadow-primary/20 transition-all duration-300">
-              <h2 className="text-xl sm:text-2xl font-serif font-bold text-primary mb-8 flex items-center gap-3">
-                <Mail className="w-7 h-7" />
-                Get In Touch
-              </h2>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 hover:border-primary/40 transition-all duration-300">
-                  <Mail className="w-6 h-6 text-primary" />
-                  <span className="text-foreground/90 font-medium">jatiniyer404@gmail.com</span>
-                </div>
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-accent/10 to-accent/5 border border-accent/20 hover:border-accent/40 transition-all duration-300">
-                  <Phone className="w-6 h-6 text-accent" />
-                  <span className="text-foreground/90 font-medium">Available for calls</span>
-                </div>
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-secondary/10 to-secondary/5 border border-secondary/20 hover:border-secondary/40 transition-all duration-300">
-                  <MapPin className="w-6 h-6 text-secondary" />
-                  <span className="text-foreground/90 font-medium">Mumbai, India</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Image and Social Links */}
-          <div className="flex flex-col items-center justify-center space-y-8 animate-fade-in-up">
-            <Avatar className="w-48 h-48 sm:w-64 sm:h-64 border-4 border-primary/50 shadow-2xl">
-              <AvatarImage src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d" alt="Jatin Iyer" />
+        <div className="flex flex-col items-center justify-center space-y-12 pt-8">
+          {/* Animated avatar with glow */}
+          <div className="relative animate-fade-in-up" style={{ animationDuration: '0.8s' }}>
+            <div 
+              className="absolute -inset-2 rounded-full bg-gradient-to-r from-primary via-accent to-secondary opacity-70 blur-2xl animate-pulse"
+              style={{ animationDelay: '0.5s', animationDuration: '4s' }}
+            ></div>
+            <Avatar className="relative w-48 h-48 sm:w-64 sm:h-64 border-4 border-primary/50 shadow-2xl">
+              <AvatarImage src="/lovable-uploads/6bcc43fb-c89a-4b05-afcc-afd638ead9a6.png" alt="Jatin Iyer" />
               <AvatarFallback>JI</AvatarFallback>
             </Avatar>
-            
-            <div className="flex flex-wrap justify-center gap-4">
-              {socialLinks.map((social, index) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group animate-fade-in-up"
-                    style={{ animationDelay: `${100 + index * 100}ms` }}
+          </div>
+          
+          {/* Social Links */}
+          <div className="flex flex-wrap justify-center gap-4">
+            {socialLinks.map((social, index) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group animate-fade-in-up"
+                  style={{ animationDelay: `${500 + index * 150}ms` }}
+                >
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className={`
+                      border-2 
+                      ${socialLinkClasses[social.color]}
+                      transition-all duration-300 transform
+                      group-hover:scale-110 group-hover:shadow-lg
+                      flex items-center gap-2
+                    `}
                   >
-                    <Button 
-                      size="lg" 
-                      variant="outline" 
-                      className={`
-                        border-2 
-                        ${socialLinkClasses[social.color]}
-                        transition-all duration-300 transform
-                        group-hover:scale-110 group-hover:shadow-lg
-                        flex items-center gap-2
-                      `}
-                    >
-                      <Icon className="w-6 h-6" />
-                      <span className="text-foreground">{social.name}</span>
-                    </Button>
-                  </a>
-                );
-              })}
-            </div>
+                    <Icon className="w-6 h-6" />
+                    <span className="text-foreground">{social.name}</span>
+                  </Button>
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
