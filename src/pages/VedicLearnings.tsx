@@ -6,12 +6,19 @@ import { useEffect } from "react";
 
 const VedicLearnings = () => {
   useEffect(() => {
-    // Make navbar transparent for this page
+    // Make navbar dark/contrasting for this page
     const navbar = document.querySelector('header');
     if (navbar) {
-      navbar.style.backgroundColor = 'transparent';
-      navbar.style.backdropFilter = 'none';
-      navbar.style.borderBottom = 'none';
+      navbar.style.backgroundColor = 'rgba(92, 51, 23, 0.95)'; // Dark brown with slight transparency
+      navbar.style.backdropFilter = 'blur(8px)';
+      navbar.style.borderBottom = '1px solid rgba(217, 119, 6, 0.3)';
+      navbar.style.color = 'white';
+      
+      // Make all navbar links white
+      const navLinks = navbar.querySelectorAll('a');
+      navLinks.forEach(link => {
+        (link as HTMLElement).style.color = 'white';
+      });
     }
     
     // Cleanup on unmount
@@ -20,6 +27,13 @@ const VedicLearnings = () => {
         navbar.style.backgroundColor = '';
         navbar.style.backdropFilter = '';
         navbar.style.borderBottom = '';
+        navbar.style.color = '';
+        
+        // Reset navbar links color
+        const navLinks = navbar.querySelectorAll('a');
+        navLinks.forEach(link => {
+          (link as HTMLElement).style.color = '';
+        });
       }
     };
   }, []);
