@@ -68,7 +68,13 @@ const skillsData = [
 
 const Skills = () => {
   return (
-    <div className="container mx-auto py-12 px-4">
+    <div className="container mx-auto py-12 px-4 relative overflow-hidden">
+      {/* Techy background grid and glow */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-background bg-[linear-gradient(to_right,hsl(var(--primary)_/_0.1),transparent_1px),linear-gradient(to_bottom,hsl(var(--primary)_/_0.1),transparent_1px)] bg-[size:2rem_2rem]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_50%_100%,hsl(var(--primary)_/_0.15),transparent)]"></div>
+      </div>
+
       <div className="text-center mb-16 animate-fade-in-up">
         <h1 className="text-5xl font-display font-bold text-primary animate-glow">My Technical Arsenal</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
