@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import Index from "./pages/Index";
 import Experience from "./pages/Experience";
 import Education from "./pages/Education";
+import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
 import VedicLearnings from "./pages/VedicLearnings";
 import Contact from "./pages/Contact";
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/experience" element={<Experience />} />
             <Route path="/education" element={<Education />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/skills" element={<Skills />} />
             <Route path="/vedic-learnings" element={<VedicLearnings />} />
             <Route path="/contact" element={<Contact />} />

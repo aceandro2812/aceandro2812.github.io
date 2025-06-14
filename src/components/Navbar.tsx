@@ -1,11 +1,12 @@
 
 import { NavLink } from 'react-router-dom';
-import { Code, BookOpen, Star, User, Mail, Book } from 'lucide-react';
+import { Code, BookOpen, Star, User, Mail, Book, Briefcase } from 'lucide-react';
 
 const navLinks = [
   { to: '/', text: 'Home', icon: Star },
   { to: '/experience', text: 'Experience', icon: Code },
   { to: '/education', text: 'Education', icon: BookOpen },
+  { to: '/projects', text: 'Projects', icon: Briefcase },
   { to: '/skills', text: 'Skills', icon: User },
   { to: '/vedic-learnings', text: 'Vedic Learnings', icon: Book },
   { to: '/contact', text: 'Contact', icon: Mail },
