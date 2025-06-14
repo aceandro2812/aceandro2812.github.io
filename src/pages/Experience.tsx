@@ -1,5 +1,7 @@
+
 import { Briefcase } from "lucide-react";
 import TimelineCard from "@/components/TimelineCard";
+import { useState, useEffect, useRef } from "react";
 
 const experienceData = [
   {
@@ -40,6 +42,37 @@ const experienceData = [
 ];
 
 const Experience = () => {
+  const [pulseY, setPulseY] = useState(-100); // Start off-screen
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (!containerRef.current) return;
+      
+      const { top, height } = containerRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate progress of viewport scrolling through the container
+      // 0 = container top at viewport bottom
+      // 1 = container bottom at viewport top
+      const progress = (viewportHeight - top) / (height + viewportHeight);
+      
+      if (progress >= 0 && progress <= 1) {
+        // Position the pulse along the timeline based on scroll progress
+        // Subtract half of pulse height (h-20 is 5rem/80px, so 40px) to center it
+        const newY = progress * height - 40;
+        setPulseY(newY);
+      } else {
+        setPulseY(-100); // Hide if not in view
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // Set initial position on load
+
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <div className="container mx-auto py-12 px-4 md:px-6 lg:px-8">
       <div className="text-center mb-16">
@@ -50,8 +83,22 @@ const Experience = () => {
           A timeline of my work experience and growth as a developer.
         </p>
       </div>
-      <div className="relative max-w-5xl mx-auto">
+      <div ref={containerRef} className="relative max-w-5xl mx-auto">
         <div className="absolute left-4 h-full w-1 bg-gradient-to-b from-transparent via-primary/30 to-primary/60 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
+        
+        {/* Scroll-driven Pulse */}
+        <div
+          className="absolute left-4 w-2 h-20 -translate-x-1/2 md:left-1/2 pointer-events-none"
+          style={{
+            top: `${pulseY}px`,
+            background: 'radial-gradient(ellipse at center, hsl(var(--primary)) 0%, transparent 70%)',
+            filter: 'blur(5px)',
+            opacity: 0.8,
+            transition: 'top 100ms linear',
+          }}
+          aria-hidden="true"
+        />
+
         <div className="space-y-12">
           {experienceData.map((item, index) => {
             const isRightAligned = index % 2 === 1;
@@ -80,3 +127,4 @@ const Experience = () => {
 };
 
 export default Experience;
+
