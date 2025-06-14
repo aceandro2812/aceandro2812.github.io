@@ -1,3 +1,4 @@
+
 import { Briefcase } from "lucide-react";
 import TimelineCard from "@/components/TimelineCard";
 import { useState, useEffect, useRef } from "react";
@@ -41,8 +42,8 @@ const experienceData = [
 ];
 
 const Experience = () => {
-  const [pulseY, setPulseY] = useState(-100); // Start off-screen
-  const [activeIndex, setActiveIndex] = useState(-1);
+  const [pulseY, setPulseY] = useState(-40); // Start at the top
+  const [activeIndex, setActiveIndex] = useState(0); // First item active initially
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

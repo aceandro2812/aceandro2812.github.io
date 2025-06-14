@@ -1,5 +1,5 @@
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useInView } from '@/hooks/useInView';
@@ -21,14 +21,22 @@ interface TimelineCardProps {
 
 const TimelineCard = ({ item, align, isActive }: TimelineCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { triggerOnce: true, rootMargin: '-100px 0px' });
+  const isInView = useInView(cardRef, { rootMargin: '-100px 0px' });
+  const [hasBeenInView, setHasBeenInView] = useState(false);
+
+  useEffect(() => {
+    if (isInView) {
+      setHasBeenInView(true);
+    }
+  }, [isInView]);
 
   return (
     <div
       ref={cardRef}
       className={cn(
-        "opacity-0",
-        isInView && 'animate-slide-in-from-top'
+        !hasBeenInView && "opacity-0",
+        isInView && "animate-slide-in-from-top",
+        !isInView && hasBeenInView && "animate-slide-out-to-top"
       )}
     >
       <Card className={cn(
