@@ -12,7 +12,7 @@ const SANSKRIT_LETTERS = [
 const FloatingLetters = () => {
   const letters = React.useMemo(() => {
     return Array.from({ length: 40 }).map((_, i) => {
-      const style: React.CSSProperties = {
+      const style: React.CSSProperties & { '--duration': string; 'animationDelay': string } = {
         left: `${Math.random() * 100}vw`,
         '--duration': `${20 + Math.random() * 20}s`,
         animationDelay: `${Math.random() * 20}s`,
