@@ -18,18 +18,18 @@ export default {
 			}
 		},
 		extend: {
-      fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Exo 2', 'sans-serif'],
-        sanskrit: ['Sanskrit Text', 'serif'],
-        serif: ['Playfair Display', 'serif'],
-      },
+			fontFamily: {
+				sans: ['Inter', 'sans-serif'],
+				display: ['Exo 2', 'sans-serif'],
+				sanskrit: ['Sanskrit Text', 'serif'],
+				serif: ['Playfair Display', 'serif'],
+			},
 			colors: {
-        'book-bg': '#2a241e',
-        'book-text': '#d4c8b0',
-        'book-muted': '#b8a890',
-        'book-accent': '#e6b800',
-        'book-card': '#3a3530',
+				'book-bg': '#2a241e',
+				'book-text': '#d4c8b0',
+				'book-muted': '#b8a890',
+				'book-accent': '#e6b800',
+				'book-card': '#3a3530',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -116,6 +116,22 @@ export default {
           '0%': { opacity: '1', transform: 'translateY(0)' },
           '100%': { opacity: '0', transform: 'translateY(-30px)' },
         },
+        'flip-out-left': {
+          'from': { transform: 'rotateY(0deg)' },
+          'to': { transform: 'rotateY(-90deg)' }
+        },
+        'flip-in-left': {
+            'from': { transform: 'rotateY(90deg)' },
+            'to': { transform: 'rotateY(0deg)' }
+        },
+        'flip-out-right': {
+            'from': { transform: 'rotateY(0deg)' },
+            'to': { transform: 'rotateY(90deg)' }
+        },
+        'flip-in-right': {
+            'from': { transform: 'rotateY(-90deg)' },
+            'to': { transform: 'rotateY(0deg)' }
+        },
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -126,6 +142,10 @@ export default {
         'glow': 'glow 3s ease-in-out infinite',
         'slide-in-from-top': 'slide-in-from-top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
         'slide-out-to-top': 'slide-out-to-top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+        'flip-out-left': 'flip-out-left 0.5s ease-in-out forwards',
+        'flip-in-left': 'flip-in-left 0.5s ease-in-out forwards',
+        'flip-out-right': 'flip-out-right 0.5s ease-in-out forwards',
+        'flip-in-right': 'flip-in-right 0.5s ease-in-out forwards',
 			}
 		}
 	},

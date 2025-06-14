@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import EducationCard from "@/components/EducationCard";
@@ -31,7 +30,10 @@ const Education = () => {
   const [animationClass, setAnimationClass] = useState('animate-fade-in');
 
   const handleNavigation = (direction: 'prev' | 'next') => {
-    setAnimationClass('animate-fade-out');
+    const outClass = direction === 'next' ? 'animate-flip-out-left' : 'animate-flip-out-right';
+    const inClass = direction === 'next' ? 'animate-flip-in-left' : 'animate-flip-in-right';
+
+    setAnimationClass(outClass);
     
     setTimeout(() => {
       if (direction === 'next') {
@@ -39,8 +41,8 @@ const Education = () => {
       } else {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + educationData.length) % educationData.length);
       }
-      setAnimationClass('animate-fade-in');
-    }, 300); // Duration should match fade-out animation
+      setAnimationClass(inClass);
+    }, 500); // Must match animation duration
   };
 
   return (
@@ -55,21 +57,21 @@ const Education = () => {
           </p>
         </div>
 
-        <div className="relative w-full max-w-2xl mx-auto h-[22rem]">
-          <div className={cn("w-full h-full", animationClass)}>
+        <div className="relative w-full max-w-2xl mx-auto h-[22rem] [perspective:1200px]">
+          <div className={cn("w-full h-full [transform-style:preserve-3d]", animationClass)}>
              <EducationCard item={educationData[currentIndex]} />
           </div>
         </div>
         
         <div className="flex items-center justify-center gap-4 mt-8">
-          <Button variant="outline" size="icon" onClick={() => handleNavigation('prev')} aria-label="Previous Education" disabled={animationClass === 'animate-fade-out'}>
+          <Button variant="outline" size="icon" onClick={() => handleNavigation('prev')} aria-label="Previous Education" disabled={animationClass.includes('-out')}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div className="text-sm text-muted-foreground font-mono">
             {currentIndex + 1} / {educationData.length}
             <p className="text-xs text-muted-foreground/70 animate-pulse">Flip the page</p>
           </div>
-          <Button variant="outline" size="icon" onClick={() => handleNavigation('next')} aria-label="Next Education" disabled={animationClass === 'animate-fade-out'}>
+          <Button variant="outline" size="icon" onClick={() => handleNavigation('next')} aria-label="Next Education" disabled={animationClass.includes('-out')}>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
