@@ -1,4 +1,3 @@
-
 import { Briefcase } from "lucide-react";
 import TimelineCard from "@/components/TimelineCard";
 import { useState, useEffect, useRef } from "react";
@@ -42,8 +41,8 @@ const experienceData = [
 ];
 
 const Experience = () => {
-  const [pulseY, setPulseY] = useState(-40); // Start at the top
-  const [activeIndex, setActiveIndex] = useState(0); // First item active initially
+  const [pulseY, setPulseY] = useState(4); // Start near the top icon
+  const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,24 +50,21 @@ const Experience = () => {
       if (!containerRef.current) return;
       
       const { top, height } = containerRef.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      
-      const progress = (viewportHeight - top) / (height + viewportHeight);
-      
-      if (progress >= 0 && progress <= 1) {
-        const newY = progress * height - 40;
-        setPulseY(newY);
-        
-        const newActiveIndex = Math.min(
-          Math.floor(progress * experienceData.length),
-          experienceData.length - 1
-        );
-        setActiveIndex(newActiveIndex);
+      const scrollHeight = containerRef.current.scrollHeight;
 
-      } else {
-        setPulseY(-100); // Hide if not in view
-        setActiveIndex(-1);
+      // Calculate scroll progress from 0 to 1 as the component scrolls through the viewport
+      const progress = Math.max(0, Math.min(1, -top / (height - window.innerHeight)));
+      
+      // Update pulse position
+      const newY = progress * (scrollHeight - 40); // Travel most of the scroll height
+      setPulseY(newY < 4 ? 4 : newY); // Ensure it doesn't go above the start
+      
+      // Update active card index
+      let newActiveIndex = Math.floor(progress * experienceData.length);
+      if (progress >= 1) {
+        newActiveIndex = experienceData.length - 1;
       }
+      setActiveIndex(newActiveIndex);
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -98,7 +94,7 @@ const Experience = () => {
             background: 'radial-gradient(ellipse at center, hsl(var(--primary)) 0%, transparent 70%)',
             filter: 'blur(5px)',
             opacity: 0.8,
-            transition: 'top 100ms linear',
+            transition: 'top 200ms linear',
           }}
           aria-hidden="true"
         />
