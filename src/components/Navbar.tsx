@@ -8,7 +8,7 @@ const navLinks = [
   { to: '/education', text: 'Education', icon: BookOpen },
   { to: '/projects', text: 'Projects', icon: Briefcase },
   { to: '/skills', text: 'Skills', icon: User },
-  { to: '/vedic-learnings', text: 'Vedic Learnings', icon: Book },
+  { to: '/vedic-learnings', text: 'Indic Education', icon: Book },
   { to: '/contact', text: 'Contact', icon: Mail },
 ];
 
