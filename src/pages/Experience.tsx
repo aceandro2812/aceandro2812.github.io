@@ -59,15 +59,33 @@ const Experience = () => {
           </div>
         </div>
 
-        <div className="space-y-8 sm:space-y-12">
-          {experienceData.map((item, index) => (
-            <TimelineCard 
-              key={index} 
-              item={item} 
-              align={index % 2 === 0 ? 'left' : 'right'}
-              isActive={index === 0}
-            />
-          ))}
+        <div className="relative">
+          {/* Vertical line for timeline - hidden on mobile */}
+          <div className="absolute left-1/2 top-0 hidden h-full w-0.5 -translate-x-1/2 bg-primary/20 md:block" aria-hidden="true"></div>
+
+          <div className="space-y-12 md:space-y-16">
+            {experienceData.map((item, index) => {
+              const isLeft = index % 2 === 0;
+              return (
+                <div key={index} className="relative md:grid md:grid-cols-2 md:items-start md:gap-x-16">
+                  
+                  {/* Timeline Dot */}
+                  <div className="absolute left-1/2 top-8 hidden -translate-x-1/2 md:block">
+                    <div className="h-4 w-4 rounded-full bg-background ring-4 ring-primary"></div>
+                  </div>
+                  
+                  {/* Timeline Card */}
+                  <div className={isLeft ? 'md:col-start-1' : 'md:col-start-2'}>
+                    <TimelineCard 
+                      item={item} 
+                      align={isLeft ? 'left' : 'right'}
+                      isActive={index === 0}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
