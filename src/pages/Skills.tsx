@@ -1,67 +1,68 @@
 
-import SkillsCategory from '@/components/SkillsCategory';
-import { Code, Database, Wind, Cog, BrainCircuit, PenTool, Server, Cloud, Bot, GitBranch } from 'lucide-react';
-
-const iconProps = {
-  className: "w-10 h-10 text-primary/80",
-  strokeWidth: 1.5,
-};
+import Marquee from '@/components/Marquee';
+import SkillCard from '@/components/SkillCard';
+import {
+  SiPython, SiJavascript, SiTypescript, SiHtml5, SiCss3, SiReact, SiNextdotjs,
+  SiNodedotjs, SiExpress, SiFlask, SiTailwindcss, SiLangchain, SiPytorch,
+  SiHuggingface, SiMongodb, SiPostgresql, SiFirebase, SiAmazonaws, SiDocker,
+  SiGit, SiGithub, SiVisualstudiocode, SiPostman, SiLinux, SiVercel
+} from 'react-icons/si';
+import { FaJava } from 'react-icons/fa';
+import { BrainCircuit } from 'lucide-react';
 
 const skillsData = [
   {
     title: "Programming & Markup",
-    baseAnimationDelay: 200,
     skills: [
-      { name: "Python", icon: <Code {...iconProps} /> },
-      { name: "JavaScript", icon: <Code {...iconProps} /> },
-      { name: "TypeScript", icon: <Code {...iconProps} /> },
-      { name: "Java", icon: <Code {...iconProps} /> },
-      { name: "HTML5", icon: <Code {...iconProps} /> },
-      { name: "CSS3", icon: <Code {...iconProps} /> },
-      { name: "SQL", icon: <Database {...iconProps} /> },
+      { name: "Python", icon: <SiPython />, color: "#3776AB" },
+      { name: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
+      { name: "TypeScript", icon: <SiTypescript />, color: "#3178C6" },
+      { name: "Java", icon: <FaJava />, color: "#007396" },
+      { name: "HTML5", icon: <SiHtml5 />, color: "#E34F26" },
+      { name: "CSS3", icon: <SiCss3 />, color: "#1572B6" },
+      { name: "SQL", icon: <SiPostgresql />, color: "#4169E1" },
     ],
   },
   {
     title: "Frameworks & Libraries",
-    baseAnimationDelay: 400,
     skills: [
-      { name: "React", icon: <Code {...iconProps} /> },
-      { name: "Node.js", icon: <Server {...iconProps} /> },
-      { name: "Express.js", icon: <Server {...iconProps} /> },
-      { name: "Flask", icon: <Server {...iconProps} /> },
-      { name: "Tailwind CSS", icon: <Wind {...iconProps} /> },
+      { name: "React", icon: <SiReact />, color: "#61DAFB" },
+      { name: "Next.js", icon: <SiNextdotjs />, color: "#FFFFFF" },
+      { name: "Node.js", icon: <SiNodedotjs />, color: "#339933" },
+      { name: "Express.js", icon: <SiExpress />, color: "#68A063" },
+      { name: "Flask", icon: <SiFlask />, color: "#FFFFFF" },
+      { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "#06B6D4" },
     ],
   },
   {
     title: "Generative AI & Machine Learning",
-    baseAnimationDelay: 600,
     skills: [
-      { name: "LLM APIs", icon: <BrainCircuit {...iconProps} /> },
-      { name: "LangChain", icon: <PenTool {...iconProps} /> },
-      { name: "Vector DBs", icon: <Database {...iconProps} /> },
-      { name: "PyTorch", icon: <Bot {...iconProps} /> },
-      { name: "Hugging Face", icon: <Bot {...iconProps} /> },
+      { name: "LLM APIs", icon: <BrainCircuit />, color: "#8B5CF6" },
+      { name: "LangChain", icon: <SiLangchain />, color: "#A855F7" },
+      { name: "Vector DBs", icon: <SiHuggingface />, color: "#FFD21E" }, // Using HuggingFace as a proxy for Vector DB concept
+      { name: "PyTorch", icon: <SiPytorch />, color: "#EE4C2C" },
+      { name: "Hugging Face", icon: <SiHuggingface />, color: "#FFD21E" },
     ],
   },
   {
     title: "Databases & Cloud",
-    baseAnimationDelay: 800,
     skills: [
-      { name: "MongoDB", icon: <Database {...iconProps} /> },
-      { name: "PostgreSQL", icon: <Database {...iconProps} /> },
-      { name: "Firebase", icon: <Cloud {...iconProps} /> },
-      { name: "AWS", icon: <Cloud {...iconProps} /> },
-      { name: "Docker", icon: <Server {...iconProps} /> },
+      { name: "MongoDB", icon: <SiMongodb />, color: "#47A248" },
+      { name: "PostgreSQL", icon: <SiPostgresql />, color: "#4169E1" },
+      { name: "Firebase", icon: <SiFirebase />, color: "#FFCA28" },
+      { name: "AWS", icon: <SiAmazonaws />, color: "#FF9900" },
+      { name: "Docker", icon: <SiDocker />, color: "#2496ED" },
+      { name: "Vercel", icon: <SiVercel />, color: "#FFFFFF" },
     ],
   },
   {
     title: "Developer Tools",
-    baseAnimationDelay: 1000,
     skills: [
-      { name: "Git & GitHub", icon: <GitBranch {...iconProps} /> },
-      { name: "VS Code", icon: <Cog {...iconProps} /> },
-      { name: "Postman", icon: <Cog {...iconProps} /> },
-      { name: "Linux", icon: <Cog {...iconProps} /> },
+      { name: "Git", icon: <SiGit />, color: "#F05032" },
+      { name: "GitHub", icon: <SiGithub />, color: "#FFFFFF" },
+      { name: "VS Code", icon: <SiVisualstudiocode />, color: "#007ACC" },
+      { name: "Postman", icon: <SiPostman />, color: "#FF6C37" },
+      { name: "Linux", icon: <SiLinux />, color: "#FCC624" },
     ],
   },
 ];
@@ -82,14 +83,20 @@ const Skills = () => {
         </p>
       </div>
 
-      {skillsData.map((category, index) => (
-        <SkillsCategory 
-          key={index}
-          title={category.title}
-          skills={category.skills}
-          baseAnimationDelay={category.baseAnimationDelay}
-        />
-      ))}
+      <div className="space-y-8">
+        {skillsData.map((category, index) => (
+          <div key={category.title}>
+            <h2 className="text-3xl font-display font-bold text-primary mb-4 text-center">
+              {category.title}
+            </h2>
+            <Marquee pauseOnHover reverse={index % 2 === 1}>
+              {category.skills.map((skill) => (
+                <SkillCard key={skill.name} {...skill} />
+              ))}
+            </Marquee>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

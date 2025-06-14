@@ -132,6 +132,14 @@ export default {
             'from': { transform: 'rotateY(-90deg)' },
             'to': { transform: 'rotateY(0deg)' }
         },
+        'marquee-left': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+        },
+        'marquee-up': {
+          from: { transform: 'translateY(0)' },
+          to: { transform: 'translateY(calc(-100% - var(--gap)))' },
+        },
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -146,6 +154,8 @@ export default {
         'flip-in-left': 'flip-in-left 0.5s ease-in-out forwards',
         'flip-out-right': 'flip-out-right 0.5s ease-in-out forwards',
         'flip-in-right': 'flip-in-right 0.5s ease-in-out forwards',
+        'marquee-left': 'marquee-left var(--duration, 40s) linear infinite',
+        'marquee-up': 'marquee-up var(--duration, 40s) linear infinite',
 			}
 		}
 	},
