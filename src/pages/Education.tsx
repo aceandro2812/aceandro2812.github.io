@@ -22,19 +22,22 @@ const certificationData = [
     institution: "Harvard University",
     degree: "Certification in Quantum Computing",
     duration: "2023",
-    description: "Completed an intensive certification program focused on quantum algorithms and quantum information theory."
+    description: "Completed an intensive certification program focused on quantum algorithms and quantum information theory.",
+    link: "https://example.com/certificate/quantum"
   },
   {
     institution: "Coursera",
     degree: "Deep Learning Specialization",
     duration: "2021",
-    description: "Mastered the foundations of Deep Learning, understood how to build neural networks, and led successful machine learning projects."
+    description: "Mastered the foundations of Deep Learning, understood how to build neural networks, and led successful machine learning projects.",
+    link: "https://example.com/certificate/deep-learning"
   },
   {
     institution: "AWS",
     degree: "Certified Solutions Architect - Associate",
     duration: "2022",
-    description: "Demonstrated knowledge of how to architect and deploy secure and robust applications on AWS technologies."
+    description: "Demonstrated knowledge of how to architect and deploy secure and robust applications on AWS technologies.",
+    link: "https://example.com/certificate/aws-sa"
   }
 ];
 
