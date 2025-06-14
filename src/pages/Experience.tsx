@@ -50,54 +50,50 @@ const experienceData = [
 const Experience = () => {
   return (
     <div className="container mx-auto py-12 px-4 md:px-6 lg:px-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-display font-bold text-primary animate-glow">
+      <div className="text-center mb-16">
+        <h1 className="text-4xl font-display font-bold text-primary animate-glow sm:text-5xl lg:text-6xl">
           My Professional Journey
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
           A timeline of my work experience and growth as a developer.
         </p>
       </div>
-      <div className="relative">
-        <div className="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-border/40" aria-hidden="true"></div>
-        <div className="relative flex flex-col gap-y-12">
-          {experienceData.map((item, index) => (
-            <div key={index} className="flex items-center w-full">
-              <div className={`flex w-full items-center ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
-                <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                  {index % 2 !== 0 && (
-                    <TimelineCard item={item} index={index} />
-                  )}
+      <div className="relative max-w-5xl mx-auto">
+        <div className="absolute left-4 h-full w-0.5 bg-primary/20 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
+        <div className="space-y-12">
+          {experienceData.map((item, index) => {
+            const isRightAligned = index % 2 === 1;
+            return (
+              <div key={index} className="relative">
+                <div className="absolute left-4 top-1 -translate-x-1/2 md:left-1/2">
+                   <div className="z-10 w-6 h-6 rounded-full bg-primary border-4 border-background flex items-center justify-center">
+                    <Briefcase className="w-3 h-3 text-primary-foreground" />
+                  </div>
+                </div>
+                <div className={`pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-x-8`}>
+                  <div className={isRightAligned ? 'md:col-start-2' : 'md:text-right'}>
+                    <TimelineCard item={item} index={index} align={isRightAligned ? 'left' : 'right'}/>
+                  </div>
                 </div>
               </div>
-              <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-primary border-4 border-background flex items-center justify-center">
-                <Briefcase className="w-3 h-3 text-primary-foreground" />
-              </div>
-              <div className={`flex w-full items-center ${index % 2 === 0 ? 'justify-end' : 'justify-start'}`}>
-                <div className={`w-1/2 ${index % 2 === 0 ? 'pl-8 text-left' : 'pr-8 text-right'}`}>
-                  {index % 2 === 0 && (
-                     <TimelineCard item={item} index={index} />
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
   );
 };
 
-const TimelineCard = ({ item, index }: { item: typeof experienceData[0], index: number }) => (
+const TimelineCard = ({ item, index, align }: { item: typeof experienceData[0], index: number, align: 'left' | 'right' }) => (
   <div className="animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
-    <Card className="shadow-lg hover:shadow-primary/20 transition-shadow duration-300">
-      <CardHeader>
+    <Card className={`text-left shadow-lg hover:shadow-primary/20 transition-all duration-300 border border-border/20 hover:border-primary bg-card/50 backdrop-blur-sm ${align === 'right' ? 'md:text-right' : ''}`}>
+      <CardHeader className={align === 'right' ? 'md:items-end' : ''}>
         <CardTitle className="text-xl font-bold">{item.role}</CardTitle>
         <CardDescription>{item.company} &bull; {item.duration}</CardDescription>
       </CardHeader>
       <CardContent>
         <p className="text-muted-foreground mb-4">{item.description}</p>
-        <div className="flex flex-wrap gap-2">
+        <div className={`flex flex-wrap gap-2 ${align === 'right' ? 'md:justify-end' : 'justify-start'}`}>
           {item.tech.map((techItem) => (
             <Badge key={techItem} variant="secondary">{techItem}</Badge>
           ))}
