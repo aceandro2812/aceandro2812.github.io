@@ -10,8 +10,8 @@ const socialLinkClasses = {
 };
 
 const socialLinks = [
-  { name: 'GitHub', icon: Github, href: 'https://github.com', color: 'primary' },
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com', color: 'accent' },
+  { name: 'GitHub', icon: Github, href: 'https://github.com/aceandro2812', color: 'primary' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/jatin-iyer', color: 'accent' },
   { name: 'Instagram', icon: Instagram, href: 'https://instagram.com', color: 'secondary' },
   { name: 'Facebook', icon: Facebook, href: 'https://facebook.com', color: 'primary' },
 ] as const;
@@ -60,12 +60,12 @@ const Contact = () => {
           {/* Animated avatar with glow */}
           <div className="relative animate-fade-in-up" style={{ animationDuration: '0.8s' }}>
             <div 
-              className="absolute -inset-2 rounded-full bg-gradient-to-r from-primary via-accent to-secondary opacity-70 blur-2xl animate-pulse"
+              className="absolute -inset-4 sm:-inset-6 rounded-full bg-gradient-to-r from-primary via-accent to-secondary opacity-70 blur-2xl animate-pulse"
               style={{ animationDelay: '0.5s', animationDuration: '4s' }}
             ></div>
-            <Avatar className="relative w-48 h-48 sm:w-64 sm:h-64 border-4 border-primary/50 shadow-2xl">
-              <AvatarImage src="/lovable-uploads/6bcc43fb-c89a-4b05-afcc-afd638ead9a6.png" alt="Jatin Iyer" />
-              <AvatarFallback>JI</AvatarFallback>
+            <Avatar className="relative w-72 h-72 sm:w-96 sm:h-96 border-4 border-primary/50 shadow-2xl">
+              <AvatarImage src="./jatin_coat.png" alt="Jatin Iyer" className="object-cover w-full h-full" />
+              <AvatarFallback className="text-4xl">JI</AvatarFallback>
             </Avatar>
           </div>
           

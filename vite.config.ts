@@ -4,7 +4,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
   // Load env file based on `mode` in the current working directory
   const env = loadEnv(mode, process.cwd(), '');
   
@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
   });
 
   return {
+    base: process.env.NODE_ENV === 'production' ? '/ai-agent-portfolio-nexus/' : '/',
     server: {
       host: "::",
       port: 8080,
@@ -29,6 +30,14 @@ export default defineConfig(({ mode }) => {
       alias: {
         "@": path.resolve(__dirname, "./src"),
       },
+    },
+    build: {
+      outDir: 'dist',
+      sourcemap: true,
+    },
+    preview: {
+      port: 8080,
+      strictPort: true,
     },
   };
 });
