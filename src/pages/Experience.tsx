@@ -1,4 +1,3 @@
-
 import { Briefcase } from "lucide-react";
 import TimelineCard from "@/components/TimelineCard";
 import { useState, useEffect, useRef } from "react";
@@ -43,6 +42,7 @@ const experienceData = [
 
 const Experience = () => {
   const [pulseY, setPulseY] = useState(-100); // Start off-screen
+  const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -52,18 +52,21 @@ const Experience = () => {
       const { top, height } = containerRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       
-      // Calculate progress of viewport scrolling through the container
-      // 0 = container top at viewport bottom
-      // 1 = container bottom at viewport top
       const progress = (viewportHeight - top) / (height + viewportHeight);
       
       if (progress >= 0 && progress <= 1) {
-        // Position the pulse along the timeline based on scroll progress
-        // Subtract half of pulse height (h-20 is 5rem/80px, so 40px) to center it
         const newY = progress * height - 40;
         setPulseY(newY);
+        
+        const newActiveIndex = Math.min(
+          Math.floor(progress * experienceData.length),
+          experienceData.length - 1
+        );
+        setActiveIndex(newActiveIndex);
+
       } else {
         setPulseY(-100); // Hide if not in view
+        setActiveIndex(-1);
       }
     };
 
@@ -114,6 +117,7 @@ const Experience = () => {
                     <TimelineCard 
                       item={item} 
                       align={isRightAligned ? 'left' : 'right'}
+                      isActive={index === activeIndex}
                     />
                   </div>
                 </div>
@@ -127,4 +131,3 @@ const Experience = () => {
 };
 
 export default Experience;
-

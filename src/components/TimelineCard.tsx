@@ -16,9 +16,10 @@ interface ExperienceItem {
 interface TimelineCardProps {
   item: ExperienceItem;
   align: 'left' | 'right';
+  isActive: boolean;
 }
 
-const TimelineCard = ({ item, align }: TimelineCardProps) => {
+const TimelineCard = ({ item, align, isActive }: TimelineCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { triggerOnce: true, rootMargin: '-100px 0px' });
 
@@ -30,7 +31,11 @@ const TimelineCard = ({ item, align }: TimelineCardProps) => {
         isInView && 'animate-slide-in-from-top'
       )}
     >
-      <Card className={`text-left shadow-lg hover:shadow-primary/20 transition-all duration-300 border border-border/20 hover:border-primary bg-card/50 backdrop-blur-sm ${align === 'right' ? 'md:text-right' : ''}`}>
+      <Card className={cn(
+        "text-left shadow-lg hover:shadow-primary/20 transition-all duration-300 border border-border/20 hover:border-primary bg-card/50 backdrop-blur-sm",
+        align === 'right' ? 'md:text-right' : '',
+        isActive && "border-primary shadow-[0_0_25px_-3px_hsl(var(--primary))]"
+      )}>
         <CardHeader className={align === 'right' ? 'md:items-end' : ''}>
           <CardTitle className="text-xl font-bold">{item.role}</CardTitle>
           <CardDescription>{item.company} &bull; {item.duration}</CardDescription>
