@@ -1,7 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import FloatingLetters from "@/components/FloatingLetters";
-import { BookOpen, Lotus, Sun } from "lucide-react";
+import { BookOpen, Flower2, Sun } from "lucide-react";
 
 const VedicLearnings = () => {
   return (
@@ -10,7 +10,7 @@ const VedicLearnings = () => {
       
       {/* Decorative elements */}
       <div className="absolute top-10 left-10 text-amber-400/20 dark:text-amber-600/20">
-        <Lotus size={80} />
+        <Flower2 size={80} />
       </div>
       <div className="absolute bottom-10 right-10 text-amber-400/20 dark:text-amber-600/20">
         <Sun size={80} />
@@ -41,9 +41,9 @@ const VedicLearnings = () => {
           <div className="space-y-8">
             <div className="text-center mb-8">
               <h3 className="text-4xl font-display font-bold text-amber-800 dark:text-amber-200 mb-4 flex items-center justify-center gap-3">
-                <Lotus className="h-8 w-8 text-amber-600 dark:text-amber-400" />
+                <Flower2 className="h-8 w-8 text-amber-600 dark:text-amber-400" />
                 गुरु परम्परा
-                <Lotus className="h-8 w-8 text-amber-600 dark:text-amber-400" />
+                <Flower2 className="h-8 w-8 text-amber-600 dark:text-amber-400" />
               </h3>
               <p className="text-xl text-amber-700 dark:text-amber-300 font-serif italic">
                 Guru Parampara & Sacred Knowledge
@@ -104,7 +104,7 @@ const VedicLearnings = () => {
                   </h4>
                   <div className="space-y-3 text-lg">
                     <div className="flex items-start gap-3">
-                      <Lotus className="h-5 w-5 text-orange-600 dark:text-orange-400 mt-1 flex-shrink-0" />
+                      <Flower2 className="h-5 w-5 text-orange-600 dark:text-orange-400 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-semibold text-orange-800 dark:text-orange-200">
                           Swami Guhatmananda Saraswati
@@ -112,7 +112,7 @@ const VedicLearnings = () => {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <Lotus className="h-5 w-5 text-orange-600 dark:text-orange-400 mt-1 flex-shrink-0" />
+                      <Flower2 className="h-5 w-5 text-orange-600 dark:text-orange-400 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-semibold text-orange-800 dark:text-orange-200">
                           Brahmaleen Swami Omakarananda Brahmendra Saraswati Avadhoota Swami
