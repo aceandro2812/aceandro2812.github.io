@@ -29,15 +29,15 @@ const EducationCard = ({ item, align }: EducationCardProps) => {
       )}
     >
       <Card className={cn(
-        "text-left shadow-lg hover:shadow-primary/20 transition-all duration-300 border border-border/20 hover:border-primary bg-card/50 backdrop-blur-sm",
+        "text-left shadow-lg hover:shadow-book-accent/20 transition-all duration-300 border border-book-accent/20 hover:border-book-accent bg-book-card",
         align === 'right' ? 'md:text-right' : ''
       )}>
         <CardHeader className={align === 'right' ? 'md:items-end' : ''}>
-          <CardTitle className="text-xl font-bold">{item.degree}</CardTitle>
-          <CardDescription>{item.institution} &bull; {item.duration}</CardDescription>
+          <CardTitle className="text-xl font-serif font-bold text-book-accent">{item.degree}</CardTitle>
+          <CardDescription className="text-book-muted">{item.institution} &bull; {item.duration}</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">{item.description}</p>
+          <p className="text-book-text">{item.description}</p>
         </CardContent>
       </Card>
     </div>
