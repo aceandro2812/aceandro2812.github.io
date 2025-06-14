@@ -3,6 +3,14 @@ import ProjectHighlightCard from '@/components/ProjectHighlightCard';
 import GithubProjects from '@/components/GithubProjects';
 import { Code, Sparkles, Rocket, Zap } from 'lucide-react';
 
+const featuredProject = {
+  title: "AI-Powered Portfolio Analyzer",
+  description: "An intelligent system that analyzes portfolio performance using machine learning algorithms, providing real-time insights and predictive analytics for investment strategies.",
+  imageUrl: "/placeholder.svg",
+  tags: ["React", "Python", "TensorFlow", "AWS", "Docker"],
+  link: "https://github.com/yourusername/portfolio-analyzer"
+};
+
 const Projects = () => {
   return (
     <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative min-h-[calc(100vh-theme(space.14))]">
@@ -15,7 +23,7 @@ const Projects = () => {
         <div className="text-center mb-12 sm:mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Rocket className="w-6 h-6 text-primary animate-pulse" />
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-medium text-primary">
               Featured Projects
             </h1>
             <Code className="w-6 h-6 text-accent animate-pulse" style={{ animationDelay: '0.5s' }} />
@@ -30,8 +38,8 @@ const Projects = () => {
         </div>
 
         <div className="space-y-12 sm:space-y-16">
-          <ProjectHighlightCard />
-          <GithubProjects />
+          <ProjectHighlightCard project={featuredProject} />
+          <GithubProjects username="yourusername" />
         </div>
       </div>
     </div>

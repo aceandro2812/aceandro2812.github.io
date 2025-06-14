@@ -1,50 +1,35 @@
+
 import TimelineCard from '@/components/TimelineCard';
 import { Briefcase, Sparkles, Code, Zap } from 'lucide-react';
 
 const experienceData = [
   {
-    title: "Senior AI Engineer",
     company: "TechCorp Solutions",
+    role: "Senior AI Engineer",
     duration: "2023 - Present",
     description: "Leading AI initiatives and developing machine learning solutions for enterprise clients. Specialized in natural language processing and computer vision applications.",
-    achievements: [
-      "Developed 5+ ML models with 95%+ accuracy",
-      "Led team of 8 engineers",
-      "Reduced processing time by 60%"
-    ]
+    tech: ["Python", "TensorFlow", "PyTorch", "AWS", "Docker"]
   },
   {
-    title: "AI Research Intern",
     company: "Innovatech Labs",
+    role: "AI Research Intern",
     duration: "2022",
     description: "Conducted research on generative models and reinforcement learning algorithms. Published a paper on novel approaches to unsupervised learning.",
-    achievements: [
-      "Published research paper",
-      "Developed new unsupervised learning technique",
-      "Improved model accuracy by 30%"
-    ]
+    tech: ["Python", "Jupyter", "Scikit-learn", "OpenAI Gym", "Research"]
   },
   {
-    title: "Software Engineer",
     company: "Global Solutions Inc.",
+    role: "Software Engineer",
     duration: "2020 - 2022",
     description: "Developed and maintained backend systems for high-traffic web applications. Focused on optimizing performance and ensuring scalability.",
-    achievements: [
-      "Optimized database queries",
-      "Reduced server latency by 40%",
-      "Implemented new API endpoints"
-    ]
+    tech: ["Node.js", "Express", "MongoDB", "Redis", "Kubernetes"]
   },
   {
-    title: "Full-Stack Developer",
     company: "Startup Innovations",
+    role: "Full-Stack Developer",
     duration: "2019 - 2020",
     description: "Built full-stack web applications from concept to deployment. Gained experience in front-end and back-end technologies.",
-    achievements: [
-      "Launched 3 web applications",
-      "Implemented user authentication system",
-      "Integrated third-party APIs"
-    ]
+    tech: ["React", "Node.js", "PostgreSQL", "AWS", "Git"]
   }
 ];
 
@@ -60,7 +45,7 @@ const Experience = () => {
         <div className="text-center mb-12 sm:mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Briefcase className="w-6 h-6 text-primary animate-pulse" />
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-medium text-primary">
               Professional Experience
             </h1>
             <Code className="w-6 h-6 text-accent animate-pulse" style={{ animationDelay: '0.5s' }} />
@@ -75,8 +60,13 @@ const Experience = () => {
         </div>
 
         <div className="space-y-8 sm:space-y-12">
-          {experienceData.map((experience, index) => (
-            <TimelineCard key={index} experience={experience} />
+          {experienceData.map((item, index) => (
+            <TimelineCard 
+              key={index} 
+              item={item} 
+              align={index % 2 === 0 ? 'left' : 'right'}
+              isActive={index === 0}
+            />
           ))}
         </div>
       </div>
