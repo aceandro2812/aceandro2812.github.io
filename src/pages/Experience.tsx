@@ -1,13 +1,6 @@
 
 import { Briefcase } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import TimelineCard from "@/components/TimelineCard";
 
 const experienceData = [
   {
@@ -59,20 +52,24 @@ const Experience = () => {
         </p>
       </div>
       <div className="relative max-w-5xl mx-auto">
-        <div className="absolute left-4 h-full w-0.5 bg-primary/20 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
+        <div className="absolute left-4 h-full w-1 bg-gradient-to-b from-transparent via-primary/30 to-primary/60 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
         <div className="space-y-12">
           {experienceData.map((item, index) => {
             const isRightAligned = index % 2 === 1;
             return (
-              <div key={index} className="relative">
+              <div key={index} className="relative group">
                 <div className="absolute left-4 top-1 -translate-x-1/2 md:left-1/2">
-                   <div className="z-10 w-6 h-6 rounded-full bg-primary border-4 border-background flex items-center justify-center">
-                    <Briefcase className="w-3 h-3 text-primary-foreground" />
+                   <div className="z-10 w-8 h-8 rounded-full bg-primary border-4 border-background flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_hsl(var(--primary))]">
+                    <Briefcase className="w-4 h-4 text-primary-foreground transition-transform duration-300 group-hover:rotate-12" />
                   </div>
                 </div>
                 <div className={`pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-x-8`}>
-                  <div className={isRightAligned ? 'md:col-start-2' : 'md:text-right'}>
-                    <TimelineCard item={item} index={index} align={isRightAligned ? 'left' : 'right'}/>
+                  <div className={isRightAligned ? 'md:col-start-2' : ''}>
+                    <TimelineCard 
+                      item={item} 
+                      align={isRightAligned ? 'left' : 'right'}
+                      animationDirection={isRightAligned ? 'right' : 'left'}
+                    />
                   </div>
                 </div>
               </div>
@@ -83,24 +80,5 @@ const Experience = () => {
     </div>
   );
 };
-
-const TimelineCard = ({ item, index, align }: { item: typeof experienceData[0], index: number, align: 'left' | 'right' }) => (
-  <div className="animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
-    <Card className={`text-left shadow-lg hover:shadow-primary/20 transition-all duration-300 border border-border/20 hover:border-primary bg-card/50 backdrop-blur-sm ${align === 'right' ? 'md:text-right' : ''}`}>
-      <CardHeader className={align === 'right' ? 'md:items-end' : ''}>
-        <CardTitle className="text-xl font-bold">{item.role}</CardTitle>
-        <CardDescription>{item.company} &bull; {item.duration}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p className="text-muted-foreground mb-4">{item.description}</p>
-        <div className={`flex flex-wrap gap-2 ${align === 'right' ? 'md:justify-end' : 'justify-start'}`}>
-          {item.tech.map((techItem) => (
-            <Badge key={techItem} variant="secondary">{techItem}</Badge>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  </div>
-);
 
 export default Experience;
