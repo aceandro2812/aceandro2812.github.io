@@ -1,4 +1,3 @@
-
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
@@ -9,7 +8,7 @@ const AnimatedGlobe = () => {
 
   const [sphere, positions] = useMemo(() => {
     const sphere = new THREE.SphereGeometry(1.5, 48, 48);
-    const positions = sphere.attributes.position.array;
+    const positions = sphere.attributes.position.array as Float32Array;
     return [sphere, positions];
   }, []);
 
@@ -22,7 +21,7 @@ const AnimatedGlobe = () => {
     <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
-        color="#00cyan"
+        color="cyan"
         size={0.015}
         sizeAttenuation={true}
         depthWrite={false}
