@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, GraduationCap, BookOpen } from "lucide-react";
 import EducationCard from "@/components/EducationCard";
 import { Button } from '@/components/ui/button';
 
@@ -31,7 +31,6 @@ const Education = () => {
   const [backIndex, setBackIndex] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // The 'active' index is the one currently visible to the user.
   const currentIndex = isFlipped ? backIndex : frontIndex;
 
   const handleNavigation = (direction: 'prev' | 'next') => {
@@ -47,31 +46,42 @@ const Education = () => {
         nextItemIndex = (currentIndex - 1 + totalItems) % totalItems;
     }
 
-    // Pre-load the content for the face that's about to be revealed.
     if (isFlipped) {
       setFrontIndex(nextItemIndex);
     } else {
       setBackIndex(nextItemIndex);
     }
     
-    // Trigger the flip.
     setIsFlipped(!isFlipped);
 
     setTimeout(() => {
       setIsAnimating(false);
-    }, 1000); // This should match the transition duration.
+    }, 1000);
   };
 
   return (
-    <div className="bg-background py-8 sm:py-12 flex flex-col items-center justify-center min-h-[calc(100vh-theme(space.14)-6rem)] px-4">
-      <div className="container mx-auto text-center max-w-4xl">
+    <div className="bg-background py-8 sm:py-12 flex flex-col items-center justify-center min-h-[calc(100vh-theme(space.14)-6rem)] px-4 relative">
+      {/* Enhanced background elements */}
+      <div className="absolute inset-0 pattern-dots opacity-20"></div>
+      <div className="absolute top-10 right-20 w-24 h-24 border-2 border-primary/20 rounded-lg rotate-45 animate-pulse"></div>
+      <div className="absolute bottom-10 left-20 w-20 h-20 border-2 border-accent/20 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+      
+      <div className="container mx-auto text-center max-w-4xl relative z-10">
         <div className="mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary animate-glow">
-            My Academic Path
-          </h1>
-          <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
-            From foundational schooling to specialized technical education.
-          </p>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <GraduationCap className="w-8 h-8 text-primary" />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-glow">
+              My Academic Path
+            </h1>
+            <BookOpen className="w-8 h-8 text-accent animate-pulse" />
+          </div>
+          <div className="relative">
+            <p className="mt-4 text-base sm:text-lg text-foreground/80 max-w-3xl mx-auto px-4 leading-relaxed">
+              From foundational schooling to 
+              <span className="text-primary font-semibold"> specialized technical education</span>.
+            </p>
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 blur-lg -z-10 rounded-lg"></div>
+          </div>
         </div>
 
         <div className="relative w-full max-w-2xl mx-auto h-[18rem] sm:h-[20rem] md:h-[22rem] [perspective:1200px]">
@@ -79,11 +89,9 @@ const Education = () => {
             className="relative w-full h-full [transform-style:preserve-3d] transition-transform duration-1000"
             style={{ transform: isFlipped ? 'rotateY(-180deg)' : 'rotateY(0deg)' }}
           >
-            {/* Front Face */}
             <div className="absolute w-full h-full [backface-visibility:hidden]">
               <EducationCard item={educationData[frontIndex]} />
             </div>
-            {/* Back Face */}
             <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)]">
               <EducationCard item={educationData[backIndex]} />
             </div>
@@ -91,18 +99,31 @@ const Education = () => {
         </div>
         
         <div className="flex items-center justify-center gap-4 mt-6 sm:mt-8">
-          <Button variant="outline" size="icon" onClick={() => handleNavigation('prev')} aria-label="Previous Education" disabled={isAnimating}>
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={() => handleNavigation('prev')} 
+            aria-label="Previous Education" 
+            disabled={isAnimating}
+            className="border-primary/50 hover:bg-primary/10 hover:border-primary transition-all duration-300"
+          >
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <div className="text-sm text-muted-foreground font-mono px-2">
-            {currentIndex + 1} / {educationData.length}
-            <p className="text-xs text-muted-foreground/70 animate-pulse">Flip the page</p>
+          <div className="text-sm text-foreground/70 font-mono px-4 py-2 bg-card/50 rounded-lg border border-primary/20">
+            <span className="text-primary font-bold">{currentIndex + 1}</span> / {educationData.length}
+            <p className="text-xs text-accent/80 animate-pulse">Flip the page</p>
           </div>
-          <Button variant="outline" size="icon" onClick={() => handleNavigation('next')} aria-label="Next Education" disabled={isAnimating}>
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={() => handleNavigation('next')} 
+            aria-label="Next Education" 
+            disabled={isAnimating}
+            className="border-primary/50 hover:bg-primary/10 hover:border-primary transition-all duration-300"
+          >
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
-
       </div>
     </div>
   );

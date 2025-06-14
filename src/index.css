@@ -8,35 +8,35 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 220 15% 8%; /* Lighter dark background */
+    --foreground: 210 20% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 15% 12%; /* Lighter card background */
+    --card-foreground: 210 20% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 15% 12%;
+    --popover-foreground: 210 20% 95%;
 
-    --primary: 180 100% 50%; /* Cyan */
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 200 100% 60%; /* Brighter cyan */
+    --primary-foreground: 220 15% 8%;
 
-    --secondary: 260 100% 70%; /* Purple */
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 280 100% 75%; /* Brighter purple */
+    --secondary-foreground: 220 15% 8%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 45 100% 65%; /* Golden accent */
+    --accent-foreground: 220 15% 8%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --muted: 217 20% 25%; /* Lighter muted */
+    --muted-foreground: 215 15% 70%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 210 20% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 180 100% 50%;
+    --border: 217 20% 25%;
+    --input: 217 20% 20%;
+    --ring: 200 100% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 }
 
@@ -47,5 +47,41 @@
 
   body {
     @apply bg-background text-foreground font-sans;
+    background-image: 
+      radial-gradient(circle at 25% 25%, hsl(var(--primary) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, hsl(var(--secondary) / 0.08) 0%, transparent 50%),
+      linear-gradient(135deg, transparent 0%, hsl(var(--accent) / 0.03) 100%);
+  }
+}
+
+/* Enhanced pattern utilities */
+@layer utilities {
+  .pattern-dots {
+    background-image: radial-gradient(circle, hsl(var(--primary) / 0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  .pattern-grid {
+    background-image: 
+      linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  
+  .pattern-diagonal {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      hsl(var(--primary) / 0.05) 10px,
+      hsl(var(--primary) / 0.05) 20px
+    );
+  }
+  
+  .gradient-mesh {
+    background: 
+      radial-gradient(circle at 20% 20%, hsl(var(--primary) / 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, hsl(var(--secondary) / 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 60%, hsl(var(--accent) / 0.1) 0%, transparent 50%);
   }
 }

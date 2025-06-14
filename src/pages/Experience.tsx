@@ -1,4 +1,5 @@
-import { Briefcase } from "lucide-react";
+
+import { Briefcase, Code, Zap } from "lucide-react";
 import TimelineCard from "@/components/TimelineCard";
 import { useState, useEffect, useRef } from "react";
 
@@ -41,7 +42,7 @@ const experienceData = [
 ];
 
 const Experience = () => {
-  const [pulseY, setPulseY] = useState(4); // Start near the top icon
+  const [pulseY, setPulseY] = useState(4);
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -74,26 +75,40 @@ const Experience = () => {
   }, []);
 
   return (
-    <div className="container mx-auto py-12 px-4 md:px-6 lg:px-8">
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-display font-bold text-primary animate-glow sm:text-5xl lg:text-6xl">
-          My Professional Journey
-        </h1>
-        <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-          A timeline of my work experience and growth as a developer.
-        </p>
+    <div className="container mx-auto py-12 px-4 md:px-6 lg:px-8 relative">
+      {/* Enhanced background patterns */}
+      <div className="absolute inset-0 pattern-grid opacity-10"></div>
+      <div className="absolute top-20 left-10 w-16 h-16 border border-accent/30 rounded-full animate-pulse"></div>
+      <div className="absolute bottom-40 right-10 w-12 h-12 border border-primary/30 rounded-lg rotate-45 animate-pulse" style={{ animationDelay: '2s' }}></div>
+      
+      <div className="text-center mb-16 relative z-10">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <Code className="w-8 h-8 text-primary" />
+          <h1 className="text-4xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-glow sm:text-5xl lg:text-6xl">
+            My Professional Journey
+          </h1>
+          <Zap className="w-8 h-8 text-accent animate-pulse" />
+        </div>
+        <div className="relative">
+          <p className="mt-4 text-lg text-foreground/80 max-w-3xl mx-auto leading-relaxed">
+            A timeline of my work experience and 
+            <span className="text-primary font-semibold"> growth as a developer</span>.
+          </p>
+          <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 blur-lg -z-10 rounded-lg"></div>
+        </div>
       </div>
+      
       <div ref={containerRef} className="relative max-w-5xl mx-auto">
-        <div className="absolute left-4 h-full w-1 bg-gradient-to-b from-transparent via-primary/30 to-primary/60 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
+        <div className="absolute left-4 h-full w-1 bg-gradient-to-b from-primary/20 via-accent/30 to-secondary/40 md:left-1/2 md:-translate-x-1/2" aria-hidden="true" />
         
-        {/* Scroll-driven Pulse */}
+        {/* Enhanced scroll-driven pulse */}
         <div
-          className="absolute left-4 w-2 h-20 -translate-x-1/2 md:left-1/2 pointer-events-none"
+          className="absolute left-4 w-3 h-24 -translate-x-1/2 md:left-1/2 pointer-events-none"
           style={{
             top: `${pulseY}px`,
-            background: 'radial-gradient(ellipse at center, hsl(var(--primary)) 0%, transparent 70%)',
-            filter: 'blur(5px)',
-            opacity: 0.8,
+            background: 'radial-gradient(ellipse at center, hsl(var(--primary)) 0%, hsl(var(--accent)) 30%, transparent 70%)',
+            filter: 'blur(8px)',
+            opacity: 0.9,
             transition: 'top 200ms linear',
           }}
           aria-hidden="true"
@@ -105,8 +120,8 @@ const Experience = () => {
             return (
               <div key={index} className="relative group">
                 <div className="absolute left-4 top-1 -translate-x-1/2 md:left-1/2">
-                   <div className="z-10 w-8 h-8 rounded-full bg-primary border-4 border-background flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_hsl(var(--primary))]">
-                    <Briefcase className="w-4 h-4 text-primary-foreground transition-transform duration-300 group-hover:rotate-12" />
+                   <div className="z-10 w-10 h-10 rounded-full bg-gradient-to-r from-primary to-accent border-4 border-background flex items-center justify-center transition-all duration-300 group-hover:scale-125 group-hover:shadow-[0_0_30px_hsl(var(--primary))]">
+                    <Briefcase className="w-5 h-5 text-primary-foreground transition-transform duration-300 group-hover:rotate-12" />
                   </div>
                 </div>
                 <div className={`pl-12 md:pl-0 md:grid md:grid-cols-2 md:gap-x-8`}>
