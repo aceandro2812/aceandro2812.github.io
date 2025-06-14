@@ -21,18 +21,18 @@ const highlightedProjects = [
 
 const Projects = () => {
   return (
-    <div className="bg-background -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center min-h-[calc(100vh-theme(space.14)-6rem)] animate-fade-in">
-      <div className="container mx-auto text-center max-w-5xl">
-        <div className="mb-12 animate-slide-in-from-top">
-          <h1 className="text-4xl font-serif font-bold text-primary animate-glow sm:text-5xl lg:text-6xl">
+    <div className="bg-background py-8 sm:py-12 flex flex-col items-center justify-center min-h-[calc(100vh-theme(space.14)-6rem)] animate-fade-in">
+      <div className="container mx-auto text-center max-w-6xl px-4 sm:px-6">
+        <div className="mb-8 sm:mb-12 animate-slide-in-from-top">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary animate-glow">
             My Creations
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
             A showcase of my passion for building innovative solutions.
           </p>
         </div>
 
-        <div className="space-y-16 mb-20">
+        <div className="space-y-12 sm:space-y-16 mb-16 sm:mb-20">
           {highlightedProjects.map((project, index) => (
             <div key={project.title} className="animate-fade-in-up" style={{ animationDelay: `${index * 200}ms`}}>
               <ProjectHighlightCard project={project} reverse={index % 2 !== 0} />

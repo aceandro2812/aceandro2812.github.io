@@ -68,14 +68,14 @@ const GithubProjects = ({ username }: { username: string }) => {
 
   return (
     <section className="animate-fade-in-up" style={{ animationDelay: '500ms' }}>
-      <div className="mb-8">
-        <h2 className="text-3xl font-serif font-bold text-primary/90 sm:text-4xl">From My GitHub</h2>
-        <p className="mt-2 text-muted-foreground">My latest repositories on GitHub. Private repos are shown if a token is provided.</p>
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-primary/90">From My GitHub</h2>
+        <p className="mt-2 text-sm sm:text-base text-muted-foreground">My latest repositories on GitHub. Private repos are shown if a token is provided.</p>
       </div>
       
       {isLoading && (
         <div className="flex justify-center items-center h-40">
-          <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          <Loader2 className="h-8 w-8 sm:h-12 sm:w-12 animate-spin text-primary" />
         </div>
       )}
 
@@ -89,7 +89,7 @@ const GithubProjects = ({ username }: { username: string }) => {
       )}
 
       {repos && repos.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {repos.map(repo => (
             <GithubRepoCard key={repo.id} repo={repo} />
           ))}

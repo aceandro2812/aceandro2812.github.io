@@ -63,18 +63,18 @@ const Education = () => {
   };
 
   return (
-    <div className="bg-background -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center min-h-[calc(100vh-theme(space.14)-6rem)]">
+    <div className="bg-background py-8 sm:py-12 flex flex-col items-center justify-center min-h-[calc(100vh-theme(space.14)-6rem)] px-4">
       <div className="container mx-auto text-center max-w-4xl">
-        <div className="mb-12">
-          <h1 className="text-4xl font-serif font-bold text-primary animate-glow sm:text-5xl lg:text-6xl">
+        <div className="mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-primary animate-glow">
             My Academic Path
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
             From foundational schooling to specialized technical education.
           </p>
         </div>
 
-        <div className="relative w-full max-w-2xl mx-auto h-[22rem] [perspective:1200px]">
+        <div className="relative w-full max-w-2xl mx-auto h-[18rem] sm:h-[20rem] md:h-[22rem] [perspective:1200px]">
           <div 
             className="relative w-full h-full [transform-style:preserve-3d] transition-transform duration-1000"
             style={{ transform: isFlipped ? 'rotateY(-180deg)' : 'rotateY(0deg)' }}
@@ -90,11 +90,11 @@ const Education = () => {
           </div>
         </div>
         
-        <div className="flex items-center justify-center gap-4 mt-8">
+        <div className="flex items-center justify-center gap-4 mt-6 sm:mt-8">
           <Button variant="outline" size="icon" onClick={() => handleNavigation('prev')} aria-label="Previous Education" disabled={isAnimating}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
-          <div className="text-sm text-muted-foreground font-mono">
+          <div className="text-sm text-muted-foreground font-mono px-2">
             {currentIndex + 1} / {educationData.length}
             <p className="text-xs text-muted-foreground/70 animate-pulse">Flip the page</p>
           </div>

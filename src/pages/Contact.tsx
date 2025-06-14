@@ -68,24 +68,24 @@ const Contact = () => {
   }, [showSocials]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-theme(space.14))] text-center py-12 relative overflow-hidden">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-theme(space.14))] text-center py-8 sm:py-12 relative overflow-hidden px-4">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/4 left-1/4 w-32 sm:w-64 h-32 sm:h-64 bg-primary/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
-      <div className="relative z-10 space-y-8">
+      <div className="relative z-10 space-y-6 sm:space-y-8 w-full max-w-4xl">
         {/* Profile Photo with Bounce then Glow Animation */}
         <div className="relative">
           <div className={showBounce ? "animate-bounce" : ""}>
-            <Avatar className={`w-48 h-48 mx-auto border-4 border-primary/20 shadow-2xl shadow-primary/20 transition-all duration-1000 ${!showBounce ? 'shadow-primary/30 shadow-xl ring-2 ring-primary/10 ring-offset-2 ring-offset-background' : ''}`}>
+            <Avatar className={`w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 mx-auto border-4 border-primary/20 shadow-2xl shadow-primary/20 transition-all duration-1000 ${!showBounce ? 'shadow-lg shadow-primary/20 ring-1 ring-primary/10 ring-offset-2 ring-offset-background' : ''}`}>
               <AvatarImage 
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" 
                 alt="Jatin Iyer"
                 className="object-cover"
               />
-              <AvatarFallback className="text-6xl font-bold bg-gradient-to-br from-primary to-secondary text-white">
+              <AvatarFallback className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-br from-primary to-secondary text-white">
                 JI
               </AvatarFallback>
             </Avatar>
@@ -94,23 +94,23 @@ const Contact = () => {
           {/* Subtle pulsing ring around avatar - only when not bouncing */}
           {!showBounce && (
             <>
-              <div className="absolute inset-0 rounded-full border border-primary/20 animate-pulse opacity-60" style={{ animationDuration: '3s' }}></div>
-              <div className="absolute inset-1 rounded-full border border-secondary/10 animate-pulse opacity-40" style={{ animationDuration: '4s', animationDelay: '1s' }}></div>
+              <div className="absolute inset-0 rounded-full border border-primary/10 animate-pulse opacity-40" style={{ animationDuration: '4s' }}></div>
+              <div className="absolute inset-2 rounded-full border border-secondary/5 animate-pulse opacity-20" style={{ animationDuration: '5s', animationDelay: '1s' }}></div>
             </>
           )}
         </div>
 
         {/* Title and Description */}
-        <div className="space-y-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+        <div className="space-y-3 sm:space-y-4 animate-fade-in-up px-4" style={{ animationDelay: '0.5s' }}>
           <div className="space-y-2">
-            <h2 className="text-2xl font-display font-semibold text-foreground/90">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-display font-semibold text-foreground/90">
               Hi, I'm Jatin Iyer
             </h2>
-            <h1 className="text-5xl font-display font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Let's Connect
             </h1>
           </div>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             AI & Backend Architect | Exploring the confluence of technology and wisdom
           </p>
         </div>
@@ -123,13 +123,13 @@ const Contact = () => {
               <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
               <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
             </div>
-            <span className="text-muted-foreground font-medium">Loading connections...</span>
+            <span className="text-muted-foreground font-medium text-sm sm:text-base">Loading connections...</span>
           </div>
         )}
 
         {/* Social Media Links */}
         {showSocials && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-3xl mx-auto px-4">
             {socialLinks.map((social, index) => {
               const Icon = social.icon;
               const isLoaded = loadedItems.includes(index);
@@ -141,7 +141,7 @@ const Contact = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`
-                    group relative p-6 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm
+                    group relative p-4 sm:p-6 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm
                     transition-all duration-500 transform hover:scale-105 hover:border-primary/50
                     ${social.bgColor} ${social.color}
                     ${isLoaded 
@@ -157,9 +157,9 @@ const Contact = () => {
                   {/* Glow effect on hover */}
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   
-                  <div className="relative flex flex-col items-center space-y-3">
+                  <div className="relative flex flex-col items-center space-y-2 sm:space-y-3">
                     <div className="relative">
-                      <Icon className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
+                      <Icon className="h-6 w-6 sm:h-8 sm:w-8 transition-transform duration-300 group-hover:scale-110" />
                       
                       {/* Loading ring for each icon */}
                       {!isLoaded && (
@@ -167,7 +167,7 @@ const Contact = () => {
                       )}
                     </div>
                     
-                    <span className="font-medium text-sm opacity-80 group-hover:opacity-100 transition-opacity">
+                    <span className="font-medium text-xs sm:text-sm opacity-80 group-hover:opacity-100 transition-opacity">
                       {social.name}
                     </span>
                   </div>
@@ -182,8 +182,8 @@ const Contact = () => {
 
         {/* Bottom text */}
         {showSocials && (
-          <div className="mt-12 animate-fade-in-up" style={{ animationDelay: '1.5s' }}>
-            <p className="text-muted-foreground">
+          <div className="mt-8 sm:mt-12 animate-fade-in-up" style={{ animationDelay: '1.5s' }}>
+            <p className="text-muted-foreground text-sm sm:text-base">
               Click any platform to connect with me
             </p>
           </div>
