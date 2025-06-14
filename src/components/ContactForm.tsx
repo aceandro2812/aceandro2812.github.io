@@ -1,4 +1,4 @@
-
+// This component is no longer used but keeping for potential future use
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
