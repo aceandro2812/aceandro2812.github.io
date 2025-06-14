@@ -1,45 +1,103 @@
-
+import { useState } from 'react';
 import ProjectHighlightCard from '@/components/ProjectHighlightCard';
 import GithubProjects from '@/components/GithubProjects';
-import { Code, Sparkles, Rocket, Zap } from 'lucide-react';
-
-const featuredProject = {
-  title: "AI-Powered Portfolio Analyzer",
-  description: "An intelligent system that analyzes portfolio performance using machine learning algorithms, providing real-time insights and predictive analytics for investment strategies.",
-  imageUrl: "/placeholder.svg",
-  tags: ["React", "Python", "TensorFlow", "AWS", "Docker"],
-  link: "https://github.com/yourusername/portfolio-analyzer"
-};
+import { Code, Rocket, Code2, Grid3x3, List } from 'lucide-react';
+import { usePortfolio } from '@/context/PortfolioContext';
+import { cn } from '@/lib/utils';
 
 const Projects = () => {
+  const { projects, personalInfo } = usePortfolio();
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  
   return (
-    <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative min-h-[calc(100vh-theme(space.14))]">
-      {/* Enhanced background patterns */}
-      <div className="absolute inset-0 pattern-dots opacity-15"></div>
-      <div className="absolute top-20 right-1/4 w-24 h-24 border-2 border-primary/20 rounded-full animate-pulse"></div>
-      <div className="absolute bottom-20 left-1/4 w-20 h-20 border-2 border-accent/20 rounded-lg rotate-45 animate-pulse" style={{ animationDelay: '1s' }}></div>
-      
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Rocket className="w-6 h-6 text-primary animate-pulse" />
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-medium text-primary">
-              Featured Projects
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <div className="relative">
+        <div className="container mx-auto px-4 py-16 sm:py-24 lg:py-32">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+              My <span className="text-primary">Projects</span>
             </h1>
-            <Code className="w-6 h-6 text-accent animate-pulse" style={{ animationDelay: '0.5s' }} />
-          </div>
-          <div className="relative">
-            <p className="text-base sm:text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto leading-relaxed">
-              Exploring the boundaries of <span className="text-primary font-semibold">AI innovation</span> and 
-              <span className="text-accent font-semibold"> software engineering</span>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+              Showcasing my work in AI, web development, and software engineering
             </p>
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 blur-lg -z-10 rounded-lg"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Projects Grid */}
+      <div className="container mx-auto px-4 py-12 sm:py-16 lg:py-20">
+        <div className="mb-10 flex flex-col items-center justify-between gap-6 sm:flex-row">
+          <div className="bg-background/80 backdrop-blur-sm p-4 rounded-lg border border-border/50">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+              Featured Work
+            </h2>
+            <p className="mt-2 text-muted-foreground">
+              A selection of my recent projects and contributions
+            </p>
+          </div>
+          <div className="inline-flex rounded-lg border border-border bg-muted/50 p-1">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={cn(
+                'inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                viewMode === 'grid' 
+                  ? 'bg-background text-foreground shadow-sm' 
+                  : 'text-muted-foreground hover:bg-muted/50'
+              )}
+            >
+              <Grid3x3 className="mr-2 h-4 w-4" />
+              Grid
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={cn(
+                'inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                viewMode === 'list' 
+                  ? 'bg-background text-foreground shadow-sm' 
+                  : 'text-muted-foreground hover:bg-muted/50'
+              )}
+            >
+              <List className="mr-2 h-4 w-4" />
+              List
+            </button>
           </div>
         </div>
 
-        <div className="space-y-12 sm:space-y-16">
-          <ProjectHighlightCard project={featuredProject} />
-          <GithubProjects username="yourusername" />
+        <div 
+          className={cn(
+            'grid gap-6',
+            viewMode === 'grid' 
+              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3' 
+              : 'grid-cols-1',
+            'transition-all duration-300',
+            'bg-transparent' // Ensure the grid itself is transparent
+          )}
+        >
+          {projects.map((project) => (
+            <ProjectHighlightCard 
+              key={project.title} 
+              project={project} 
+              layout={viewMode === 'list' ? 'horizontal' : 'vertical'}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* GitHub Projects */}
+      <div className="border-t border-border/50 py-16 bg-background/50 backdrop-blur-sm">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-7xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                Open Source Contributions
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+                Explore my open-source projects and contributions on GitHub
+              </p>
+            </div>
+            <GithubProjects username={personalInfo.github} className="max-w-7xl" />
+          </div>
         </div>
       </div>
     </div>

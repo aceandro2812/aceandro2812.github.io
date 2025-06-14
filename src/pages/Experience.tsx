@@ -1,39 +1,9 @@
-
 import TimelineCard from '@/components/TimelineCard';
-import { Briefcase, Sparkles, Code, Zap } from 'lucide-react';
-
-const experienceData = [
-  {
-    company: "TechCorp Solutions",
-    role: "Senior AI Engineer",
-    duration: "2023 - Present",
-    description: "Leading AI initiatives and developing machine learning solutions for enterprise clients. Specialized in natural language processing and computer vision applications.",
-    tech: ["Python", "TensorFlow", "PyTorch", "AWS", "Docker"]
-  },
-  {
-    company: "Innovatech Labs",
-    role: "AI Research Intern",
-    duration: "2022",
-    description: "Conducted research on generative models and reinforcement learning algorithms. Published a paper on novel approaches to unsupervised learning.",
-    tech: ["Python", "Jupyter", "Scikit-learn", "OpenAI Gym", "Research"]
-  },
-  {
-    company: "Global Solutions Inc.",
-    role: "Software Engineer",
-    duration: "2020 - 2022",
-    description: "Developed and maintained backend systems for high-traffic web applications. Focused on optimizing performance and ensuring scalability.",
-    tech: ["Node.js", "Express", "MongoDB", "Redis", "Kubernetes"]
-  },
-  {
-    company: "Startup Innovations",
-    role: "Full-Stack Developer",
-    duration: "2019 - 2020",
-    description: "Built full-stack web applications from concept to deployment. Gained experience in front-end and back-end technologies.",
-    tech: ["React", "Node.js", "PostgreSQL", "AWS", "Git"]
-  }
-];
+import { Briefcase, Code } from 'lucide-react';
+import { usePortfolio } from '@/context/PortfolioContext';
 
 const Experience = () => {
+  const { experience } = usePortfolio();
   return (
     <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative min-h-[calc(100vh-theme(space.14))]">
       {/* Enhanced background patterns */}
@@ -64,7 +34,7 @@ const Experience = () => {
           <div className="absolute left-1/2 top-0 hidden h-full w-0.5 -translate-x-1/2 bg-primary/20 md:block" aria-hidden="true"></div>
 
           <div className="space-y-12 md:space-y-16">
-            {experienceData.map((item, index) => {
+            {experience.map((item, index) => {
               const isLeft = index % 2 === 0;
               return (
                 <div key={index} className="relative md:grid md:grid-cols-2 md:items-start md:gap-x-16">

@@ -1,47 +1,9 @@
-
 import EducationCard from '@/components/EducationCard';
 import { GraduationCap, Sparkles, BookOpen, Award } from 'lucide-react';
-
-const educationData = [
-  {
-    institution: "Indian Institute of Technology",
-    degree: "Master of Technology in Computer Science",
-    duration: "2020 - 2022",
-    description: "Specialized in Artificial Intelligence and Machine Learning with focus on deep learning architectures and neural networks."
-  },
-  {
-    institution: "University of California, Berkeley",
-    degree: "Bachelor of Science in Electrical Engineering",
-    duration: "2016 - 2020",
-    description: "Focused on embedded systems, control systems, and robotics. Graduated with honors."
-  },
-];
-
-const certificationData = [
-  {
-    institution: "Harvard University",
-    degree: "Certification in Quantum Computing",
-    duration: "2023",
-    description: "Completed an intensive certification program focused on quantum algorithms and quantum information theory.",
-    link: "https://example.com/certificate/quantum"
-  },
-  {
-    institution: "Coursera",
-    degree: "Deep Learning Specialization",
-    duration: "2021",
-    description: "Mastered the foundations of Deep Learning, understood how to build neural networks, and led successful machine learning projects.",
-    link: "https://example.com/certificate/deep-learning"
-  },
-  {
-    institution: "AWS",
-    degree: "Certified Solutions Architect - Associate",
-    duration: "2022",
-    description: "Demonstrated knowledge of how to architect and deploy secure and robust applications on AWS technologies.",
-    link: "https://example.com/certificate/aws-sa"
-  }
-];
+import { usePortfolio } from '@/context/PortfolioContext';
 
 const Education = () => {
+  const { education, certifications } = usePortfolio();
   return (
     <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative min-h-[calc(100vh-theme(space.14))]">
       {/* Enhanced background patterns */}
@@ -68,7 +30,7 @@ const Education = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
-          {educationData.map((item, index) => (
+          {education.map((item, index) => (
             <EducationCard key={index} item={item} />
           ))}
         </div>
@@ -88,7 +50,7 @@ const Education = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
-            {certificationData.map((item, index) => (
+            {certifications.map((item, index) => (
               <EducationCard key={index} item={item} />
             ))}
           </div>

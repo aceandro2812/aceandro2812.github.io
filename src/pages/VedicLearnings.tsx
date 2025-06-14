@@ -87,7 +87,7 @@ const VedicLearnings = () => {
                   <div className="float-right ml-6 mb-4">
                     <div className="w-32 h-32 rounded-lg overflow-hidden shadow-lg border-2 border-amber-300/40">
                       <img 
-                        src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=400&fit=crop&crop=center" 
+                        src="./brahm.png" 
                         alt="Ancient wisdom and learning"
                         className="w-full h-full object-cover"
                       />
@@ -148,7 +148,7 @@ const VedicLearnings = () => {
                   <div className="float-right ml-6 mb-4">
                     <div className="w-32 h-32 rounded-lg overflow-hidden shadow-lg border-2 border-orange-300/40">
                       <img 
-                        src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=400&fit=crop&crop=center" 
+                        src="./sans.png" 
                         alt="Sanskrit grammar and literature"
                         className="w-full h-full object-cover"
                       />

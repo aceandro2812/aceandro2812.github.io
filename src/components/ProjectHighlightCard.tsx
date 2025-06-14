@@ -1,74 +1,140 @@
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
+import "./ProjectHighlightCard.css";
 
-interface Project {
+export interface Project {
   title: string;
   description: string;
-  imageUrl: string;
   tags: string[];
+  imageUrl: string;
   link: string;
+  githubLink?: string;
 }
 
 interface ProjectHighlightCardProps {
   project: Project;
-  reverse?: boolean;
+  layout?: 'grid' | 'list' | 'horizontal' | 'vertical';
+  className?: string;
 }
 
-const ProjectHighlightCard = ({ project, reverse = false }: ProjectHighlightCardProps) => {
-  return (
-    <Card className="bg-gradient-to-br from-card/80 to-card/60 backdrop-blur-sm border-2 border-primary/20 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 group">
-      <div className={`flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
-        <div className="lg:w-1/2 relative overflow-hidden">
-          <img 
-            src={project.imageUrl} 
-            alt={project.title} 
-            className="w-full h-48 sm:h-64 lg:h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+const ProjectHighlightCard = ({ 
+  project, 
+  layout = 'grid',
+  className = '' 
+}: ProjectHighlightCardProps) => {
+  const isListLayout = layout === 'list' || layout === 'horizontal';
+  const isVertical = layout === 'vertical' || layout === 'grid';
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  if (isListLayout) {
+    return (
+      <div 
+        ref={cardRef}
+        className={cn('project-card-wrapper', className)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="project-card">
+          <div className="flex flex-col sm:flex-row h-full">
+            <div className="sm:w-1/3 h-48 sm:h-auto">
+              <img
+                src={project.imageUrl}
+                alt={project.title}
+                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+            <div className="flex-1 flex flex-col p-6 project-card-content">
+              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+              <p className="text-muted-foreground mb-4 flex-1">{project.description}</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary" className="text-xs">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+              <div className="flex gap-2 mt-auto">
+                <Button size="sm" variant="outline" asChild>
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    View Project
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
+                {project.githubLink && (
+                  <Button size="sm" variant="ghost" asChild>
+                    <a href={project.githubLink} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                      <Github className="h-4 w-4" />
+                    </a>
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="lg:w-1/2 flex flex-col p-4 sm:p-6 relative">
-          {/* Subtle background pattern */}
-          <div className="absolute inset-0 pattern-dots opacity-5"></div>
-          
-          <CardHeader className="text-left p-0 mb-4 relative z-10">
-            <CardTitle className="text-2xl sm:text-3xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent group-hover:from-accent group-hover:to-secondary transition-all duration-300">
-              {project.title}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex-grow flex flex-col justify-between text-left space-y-4 p-0 relative z-10">
-            <p className="text-foreground/80 text-base sm:text-lg leading-relaxed">
-              {project.description}
-            </p>
+      </div>
+    );
+  }
+
+  // Default grid/vertical layout
+  return (
+    <div 
+      ref={cardRef}
+      className={cn('project-card-wrapper', className)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="project-card">
+        <div className="relative h-48">
+          <img
+            src={project.imageUrl}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
             <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag, index) => (
-                <Badge 
-                  key={tag} 
-                  variant="secondary" 
-                  className="text-xs sm:text-sm bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 hover:border-primary/40 transition-colors duration-300"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
+              {project.tags.map((tag) => (
+                <Badge key={tag} variant="secondary" className="text-xs">
                   {tag}
                 </Badge>
               ))}
             </div>
-            <a href={project.link} target="_blank" rel="noopener noreferrer" className="self-start">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="text-sm border-2 border-primary/50 hover:bg-primary/10 hover:border-primary transition-all duration-300 group/btn"
-              >
-                <ExternalLink className="mr-2 h-4 w-4 group-hover/btn:rotate-12 transition-transform duration-300" />
-                View on GitHub 
-                <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
+          </div>
+        </div>
+        <div className="flex-1 flex flex-col p-6 project-card-content">
+          <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+          <p className="text-muted-foreground mb-4 flex-1">{project.description}</p>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.tags.map((tag) => (
+              <Badge key={tag} variant="secondary" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+          <div className="project-card-actions">
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" asChild>
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center">
+                  View Project
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
               </Button>
-            </a>
-          </CardContent>
+              {project.githubLink && (
+                <Button size="sm" variant="ghost" asChild>
+                  <a href={project.githubLink} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <Github className="h-4 w-4" />
+                  </a>
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 };
 
