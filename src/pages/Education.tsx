@@ -1,8 +1,8 @@
+
 import { useState } from 'react';
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import EducationCard from "@/components/EducationCard";
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
 const educationData = [
   {
@@ -26,23 +26,40 @@ const educationData = [
 ];
 
 const Education = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [animationClass, setAnimationClass] = useState('animate-fade-in');
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [frontIndex, setFrontIndex] = useState(0);
+  const [backIndex, setBackIndex] = useState(1);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // The 'active' index is the one currently visible to the user.
+  const currentIndex = isFlipped ? backIndex : frontIndex;
 
   const handleNavigation = (direction: 'prev' | 'next') => {
-    const outClass = direction === 'next' ? 'animate-flip-out-left' : 'animate-flip-out-right';
-    const inClass = direction === 'next' ? 'animate-flip-in-left' : 'animate-flip-in-right';
+    if (isAnimating) return;
+    setIsAnimating(true);
 
-    setAnimationClass(outClass);
+    const totalItems = educationData.length;
+    let nextItemIndex;
+
+    if (direction === 'next') {
+        nextItemIndex = (currentIndex + 1) % totalItems;
+    } else {
+        nextItemIndex = (currentIndex - 1 + totalItems) % totalItems;
+    }
+
+    // Pre-load the content for the face that's about to be revealed.
+    if (isFlipped) {
+      setFrontIndex(nextItemIndex);
+    } else {
+      setBackIndex(nextItemIndex);
+    }
     
+    // Trigger the flip.
+    setIsFlipped(!isFlipped);
+
     setTimeout(() => {
-      if (direction === 'next') {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % educationData.length);
-      } else {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + educationData.length) % educationData.length);
-      }
-      setAnimationClass(inClass);
-    }, 500); // Must match animation duration
+      setIsAnimating(false);
+    }, 1000); // This should match the transition duration.
   };
 
   return (
@@ -58,20 +75,30 @@ const Education = () => {
         </div>
 
         <div className="relative w-full max-w-2xl mx-auto h-[22rem] [perspective:1200px]">
-          <div className={cn("w-full h-full [transform-style:preserve-3d]", animationClass)}>
-             <EducationCard item={educationData[currentIndex]} />
+          <div 
+            className="relative w-full h-full [transform-style:preserve-3d] transition-transform duration-1000"
+            style={{ transform: isFlipped ? 'rotateY(-180deg)' : 'rotateY(0deg)' }}
+          >
+            {/* Front Face */}
+            <div className="absolute w-full h-full [backface-visibility:hidden]">
+              <EducationCard item={educationData[frontIndex]} />
+            </div>
+            {/* Back Face */}
+            <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)]">
+              <EducationCard item={educationData[backIndex]} />
+            </div>
           </div>
         </div>
         
         <div className="flex items-center justify-center gap-4 mt-8">
-          <Button variant="outline" size="icon" onClick={() => handleNavigation('prev')} aria-label="Previous Education" disabled={animationClass.includes('-out')}>
+          <Button variant="outline" size="icon" onClick={() => handleNavigation('prev')} aria-label="Previous Education" disabled={isAnimating}>
             <ArrowLeft className="h-4 w-4" />
           </Button>
           <div className="text-sm text-muted-foreground font-mono">
             {currentIndex + 1} / {educationData.length}
             <p className="text-xs text-muted-foreground/70 animate-pulse">Flip the page</p>
           </div>
-          <Button variant="outline" size="icon" onClick={() => handleNavigation('next')} aria-label="Next Education" disabled={animationClass.includes('-out')}>
+          <Button variant="outline" size="icon" onClick={() => handleNavigation('next')} aria-label="Next Education" disabled={isAnimating}>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
