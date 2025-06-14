@@ -82,11 +82,11 @@ const Contact = () => {
             <Avatar className={`w-48 h-48 mx-auto border-4 border-primary/20 shadow-2xl shadow-primary/20 transition-all duration-1000 ${!showBounce ? 'shadow-primary/30 shadow-xl ring-2 ring-primary/10 ring-offset-2 ring-offset-background' : ''}`}>
               <AvatarImage 
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" 
-                alt="Profile"
+                alt="Jatin Iyer"
                 className="object-cover"
               />
               <AvatarFallback className="text-6xl font-bold bg-gradient-to-br from-primary to-secondary text-white">
-                AI
+                JI
               </AvatarFallback>
             </Avatar>
           </div>
@@ -102,9 +102,14 @@ const Contact = () => {
 
         {/* Title and Description */}
         <div className="space-y-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-          <h1 className="text-5xl font-display font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Let's Connect
-          </h1>
+          <div className="space-y-2">
+            <h2 className="text-2xl font-display font-semibold text-foreground/90">
+              Hi, I'm Jatin Iyer
+            </h2>
+            <h1 className="text-5xl font-display font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Let's Connect
+            </h1>
+          </div>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             AI & Backend Architect | Exploring the confluence of technology and wisdom
           </p>

@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <NavLink to="/" className="mr-6 flex items-center space-x-2">
           <Code className="h-6 w-6 text-primary" />
-          <span className="font-bold font-display">Portfolio</span>
+          <span className="font-bold font-display">Jatin Iyer</span>
         </NavLink>
         <nav className="flex items-center gap-4 text-sm lg:gap-6">
           {navLinks.map(({ to, text, icon: Icon }) => (
