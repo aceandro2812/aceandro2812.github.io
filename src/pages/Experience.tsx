@@ -45,7 +45,7 @@ const Experience = () => {
         <div className="text-center mb-12 sm:mb-16">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Briefcase className="w-6 h-6 text-primary animate-pulse" />
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-medium text-primary">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-medium text-primary">
               Professional Experience
             </h1>
             <Code className="w-6 h-6 text-accent animate-pulse" style={{ animationDelay: '0.5s' }} />
