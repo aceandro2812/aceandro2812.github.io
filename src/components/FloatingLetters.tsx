@@ -6,17 +6,17 @@ const SANSKRIT_LETTERS = [
   'क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ',
   'ट', 'ठ', 'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न',
   'प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श',
-  'ष', 'स', 'ह', 'क्ष', 'त्र', 'ज्ञ'
+  'ष', 'स', 'ह', 'क्ष', 'त्र', 'ज्ञ', 'ॐ', '॥'
 ];
 
 const FloatingLetters = () => {
   const letters = React.useMemo(() => {
-    return Array.from({ length: 40 }).map((_, i) => {
+    return Array.from({ length: 35 }).map((_, i) => {
       const style: React.CSSProperties & { '--duration': string; 'animationDelay': string } = {
         left: `${Math.random() * 100}vw`,
-        '--duration': `${10 + Math.random() * 15}s`,
-        animationDelay: `${Math.random() * 10}s`,
-        fontSize: `${1 + Math.random() * 1.5}rem`,
+        '--duration': `${15 + Math.random() * 20}s`,
+        animationDelay: `${Math.random() * 15}s`,
+        fontSize: `${0.8 + Math.random() * 1.2}rem`,
       };
       const character = SANSKRIT_LETTERS[Math.floor(Math.random() * SANSKRIT_LETTERS.length)];
       return { style, character, id: i };
@@ -28,7 +28,7 @@ const FloatingLetters = () => {
       {letters.map(({ style, character, id }) => (
         <span
           key={id}
-          className="absolute text-book-muted/30 animate-floating"
+          className="absolute text-amber-400/20 dark:text-amber-600/20 animate-floating font-sanskrit"
           style={style}
         >
           {character}
