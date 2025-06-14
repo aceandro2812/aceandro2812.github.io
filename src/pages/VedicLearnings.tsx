@@ -82,6 +82,19 @@ const VedicLearnings = () => {
                       कृष्ण यजुर्वेद
                     </div>
                   </div>
+                  
+                  {/* Rishi writing image */}
+                  <div className="float-right ml-6 mb-4">
+                    <div className="w-32 h-32 rounded-lg overflow-hidden shadow-lg border-2 border-amber-300/40">
+                      <img 
+                        src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=400&fit=crop&crop=center" 
+                        alt="Ancient wisdom and learning"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <p className="text-xs text-amber-600 text-center mt-2 italic">Ancient Vedic Learning</p>
+                  </div>
+                  
                   <div className="mt-4">
                     <h4 className="font-bold text-2xl text-amber-800 mb-4 font-sanskrit">
                       Krishna Yajurveda
@@ -100,6 +113,14 @@ const VedicLearnings = () => {
                         <div>
                           <p className="font-semibold text-amber-800">
                             Veda Ratnam Dr Ramesh Dravid Ghanapathi (Kashi)
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Sun className="h-5 w-5 text-amber-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <p className="font-semibold text-amber-800">
+                            Rajesh Iyer
                           </p>
                         </div>
                       </div>
@@ -122,6 +143,19 @@ const VedicLearnings = () => {
                       संस्कृत
                     </div>
                   </div>
+                  
+                  {/* Panini image */}
+                  <div className="float-right ml-6 mb-4">
+                    <div className="w-32 h-32 rounded-lg overflow-hidden shadow-lg border-2 border-orange-300/40">
+                      <img 
+                        src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=400&fit=crop&crop=center" 
+                        alt="Sanskrit grammar and literature"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <p className="text-xs text-orange-600 text-center mt-2 italic">Sanskrit Grammar</p>
+                  </div>
+                  
                   <div className="mt-4">
                     <h4 className="font-bold text-2xl text-orange-800 mb-4 font-sanskrit">
                       Sanskrit
@@ -140,6 +174,14 @@ const VedicLearnings = () => {
                         <div>
                           <p className="font-semibold text-orange-800">
                             Brahmaleen Swami Omakarananda Brahmendra Saraswati Avadhoota Swami
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <Flower2 className="h-5 w-5 text-orange-600 mt-1 flex-shrink-0" />
+                        <div>
+                          <p className="font-semibold text-orange-800">
+                            Rajesh Iyer
                           </p>
                         </div>
                       </div>
