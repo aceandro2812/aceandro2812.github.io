@@ -79,7 +79,7 @@ const Contact = () => {
         {/* Profile Photo with Bounce then Glow Animation */}
         <div className="relative">
           <div className={showBounce ? "animate-bounce" : ""}>
-            <Avatar className={`w-48 h-48 mx-auto border-4 border-primary/20 shadow-2xl shadow-primary/20 transition-all duration-1000 ${!showBounce ? 'shadow-primary/40 shadow-2xl ring-4 ring-primary/20 ring-offset-4 ring-offset-background' : ''}`}>
+            <Avatar className={`w-48 h-48 mx-auto border-4 border-primary/20 shadow-2xl shadow-primary/20 transition-all duration-1000 ${!showBounce ? 'shadow-primary/30 shadow-xl ring-2 ring-primary/10 ring-offset-2 ring-offset-background' : ''}`}>
               <AvatarImage 
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" 
                 alt="Profile"
@@ -91,11 +91,11 @@ const Contact = () => {
             </Avatar>
           </div>
           
-          {/* Pulsing ring around avatar - only when not bouncing */}
+          {/* Subtle pulsing ring around avatar - only when not bouncing */}
           {!showBounce && (
             <>
-              <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping"></div>
-              <div className="absolute inset-2 rounded-full border border-secondary/20 animate-pulse"></div>
+              <div className="absolute inset-0 rounded-full border border-primary/20 animate-pulse opacity-60" style={{ animationDuration: '3s' }}></div>
+              <div className="absolute inset-1 rounded-full border border-secondary/10 animate-pulse opacity-40" style={{ animationDuration: '4s', animationDelay: '1s' }}></div>
             </>
           )}
         </div>
