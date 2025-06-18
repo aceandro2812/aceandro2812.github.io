@@ -17,7 +17,7 @@ export default defineConfig(({ command, mode }) => {
   });
 
   return {
-    base: process.env.NODE_ENV === 'production' ? '/ai-agent-portfolio-nexus/' : '/',
+    base: process.env.NODE_ENV === 'production' ? '/' : '/',
     server: {
       host: "::",
       port: 8080,
