@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 
 // Using GitHub API with authentication for higher rate limits
 // const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
-const GITHUB_TOKEN = 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
+const GITHUB_TOKEN = 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
 
 // Debug: Log environment variables (remove in production)
 console.log('Environment Variables:', {
