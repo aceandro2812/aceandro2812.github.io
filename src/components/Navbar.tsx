@@ -1,80 +1,116 @@
-
-import { NavLink } from 'react-router-dom';
-import { Code, BookOpen, Star, User, Mail, Book, Briefcase, Menu, X } from 'lucide-react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { Code, BookOpen, User, Mail, Briefcase, TerminalSquare } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { to: '/', text: 'Home', icon: Star },
-  { to: '/experience', text: 'Experience', icon: Code },
-  { to: '/education', text: 'Education', icon: BookOpen },
-  { to: '/projects', text: 'Projects', icon: Briefcase },
-  { to: '/skills', text: 'Skills', icon: User },
-  { to: '/vedic-learnings', text: 'Indic Education', icon: Book },
-  { to: '/contact', text: 'Contact', icon: Mail },
+  { to: '/', text: '[ HOME ]', icon: TerminalSquare },
+  { to: '/experience', text: '[ EXPERIENCE ]', icon: Code },
+  { to: '/projects', text: '[ PROJECTS ]', icon: Briefcase },
+  { to: '/skills', text: '[ SKILLS ]', icon: User },
+  { to: '/vedic-learnings', text: '[ ARCHIVES ]', icon: BookOpen },
+  { to: '/contact', text: '[ CONTACT ]', icon: Mail },
 ];
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const [hoveredPath, setHoveredPath] = useState<string | null>(null);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <NavLink to="/" className="flex items-center space-x-2">
-          <Code className="h-6 w-6 text-primary" />
-          <span className="font-bold font-display text-sm sm:text-base">Jatin Iyer</span>
-        </NavLink>
-        
-        {/* Mobile menu button */}
-        <button
-          className="md:hidden p-2"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+    <motion.div
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100]"
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.5 }}
+    >
+      {/* Outer spinning targeting ring */}
+      <div className="absolute -inset-3 sm:-inset-4 rounded-full border border-primary-green/20 border-dashed animate-[spin_10s_linear_infinite] pointer-events-none" />
+      <div className="absolute -inset-2 sm:-inset-3 rounded-full border border-cyber-blue/10 border-dotted animate-[spin_15s_linear_infinite_reverse] pointer-events-none" />
 
-        {/* Desktop navigation */}
-        <nav className="hidden md:flex items-center gap-2 lg:gap-4 text-sm">
-          {navLinks.map(({ to, text, icon: Icon }) => (
+      <nav className="relative flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-full border border-primary-green/40 bg-black/80 backdrop-blur-xl shadow-[0_0_30px_rgba(0,255,65,0.2)] overflow-x-auto max-w-[95vw] scrollbar-hide pointer-events-auto">
+        {navLinks.map(({ to, text, icon: Icon }) => {
+          const isActive = location.pathname === to || (to === '/experience' && location.pathname.startsWith('/experience')) || (to === '/projects' && location.pathname.startsWith('/projects'));
+          const isHovered = hoveredPath === to;
+
+          return (
             <NavLink
               key={to}
               to={to}
-              className={({ isActive }) =>
-                `transition-colors hover:text-primary px-2 py-1 rounded-md ${
-                  isActive ? 'text-primary bg-primary/10' : 'text-foreground/60'
-                }`
-              }
+              onMouseEnter={() => setHoveredPath(to)}
+              onMouseLeave={() => setHoveredPath(null)}
+              className={cn(
+                "group relative flex items-center justify-center h-10 sm:h-12 px-3 sm:px-4 rounded-full transition-colors duration-300 z-10 font-mono focus:outline-none",
+                isActive ? "text-black font-bold" : "text-primary-green/60 hover:text-primary-green"
+              )}
             >
-              <span className="hidden lg:inline">{text}</span>
-              <Icon className="h-4 w-4 lg:hidden" />
-            </NavLink>
-          ))}
-        </nav>
+              {/* Active Background Pill */}
+              {isActive && (
+                <motion.div
+                  layoutId="navbar-active-pill"
+                  className="absolute inset-0 rounded-full bg-primary-green shadow-[0_0_15px_rgba(0,255,65,0.8)] border border-white/40 -z-10"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
 
-        {/* Mobile navigation */}
-        {isOpen && (
-          <div className="absolute top-14 left-0 right-0 bg-background/95 backdrop-blur border-b border-border/40 md:hidden">
-            <nav className="flex flex-col p-4 space-y-2">
-              {navLinks.map(({ to, text, icon: Icon }) => (
-                <NavLink
-                  key={to}
-                  to={to}
-                  onClick={() => setIsOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center space-x-3 px-3 py-2 rounded-md transition-colors ${
-                      isActive ? 'text-primary bg-primary/10' : 'text-foreground/80 hover:text-primary hover:bg-primary/5'
-                    }`
-                  }
+              {/* Hover highlight (non-active) */}
+              <AnimatePresence>
+                {!isActive && isHovered && (
+                  <motion.div
+                    layoutId="navbar-hover-glow"
+                    className="absolute inset-0 rounded-full bg-primary-green/15 border border-primary-green/40 -z-10"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  />
+                )}
+              </AnimatePresence>
+
+              <div className="flex items-center gap-2">
+                <Icon className={cn("w-5 h-5 sm:w-5 sm:h-5 transition-transform duration-300", isHovered && !isActive && "scale-110")} />
+
+                {/* Text reveal for hover or active */}
+                <motion.div
+                  className="overflow-hidden whitespace-nowrap flex items-center"
+                  initial={false}
+                  animate={{
+                    width: (isHovered || isActive) ? 'auto' : 0,
+                    opacity: (isHovered || isActive) ? 1 : 0,
+                    marginLeft: (isHovered || isActive) ? '4px' : 0
+                  }}
+                  transition={{ duration: 0.3, ease: 'backOut' }}
                 >
-                  <Icon className="h-4 w-4" />
-                  <span>{text}</span>
-                </NavLink>
-              ))}
-            </nav>
-          </div>
-        )}
-      </div>
-    </header>
+                  <span className={cn("text-xs sm:text-sm tracking-widest", isActive ? "text-black" : "")}>
+                    {text}
+                  </span>
+                </motion.div>
+              </div>
+
+              {/* Status Dot */}
+              <AnimatePresence>
+                {isActive && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0 }}
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-black rounded-full shadow-[0_0_5px_rgba(0,0,0,0.5)] border border-primary-green"
+                  />
+                )}
+                {!isActive && isHovered && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    exit={{ scale: 0 }}
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary-green rounded-full shadow-[0_0_10px_#00FF41] animate-ping"
+                  />
+                )}
+              </AnimatePresence>
+            </NavLink>
+          );
+        })}
+      </nav>
+    </motion.div>
   );
 };
 

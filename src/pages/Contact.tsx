@@ -1,105 +1,155 @@
-import FloatingLetters from '@/components/FloatingLetters';
-import { MessageCircle, Sparkles, Brain, Cpu, Zap, Github, Linkedin, Instagram, Facebook } from 'lucide-react';
+import { MessageCircle, Github, Linkedin, Instagram, Facebook, Terminal, Shield, Lock, Send, Network } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-
-const socialLinkClasses = {
-  primary: 'border-primary/50 hover:bg-primary/10 hover:border-primary group-hover:shadow-primary/20 text-primary',
-  accent: 'border-accent/50 hover:bg-accent/10 hover:border-accent group-hover:shadow-accent/20 text-accent',
-  secondary: 'border-secondary/50 hover:bg-secondary/10 hover:border-secondary group-hover:shadow-secondary/20 text-secondary',
-};
+import { useState } from 'react';
+import { ScrambleText } from '@/components/ScrambleText';
 
 const socialLinks = [
-  { name: 'GitHub', icon: Github, href: 'https://github.com/aceandro2812', color: 'primary' },
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/jatin-iyer', color: 'accent' },
-  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com', color: 'secondary' },
-  { name: 'Facebook', icon: Facebook, href: 'https://facebook.com', color: 'primary' },
+  { name: 'GITHUB', icon: Github, href: 'https://github.com/aceandro2812', color: 'primary' },
+  { name: 'LINKEDIN', icon: Linkedin, href: 'https://linkedin.com/jatin-iyer', color: 'accent' },
+  { name: 'INSTAGRAM', icon: Instagram, href: 'https://instagram.com', color: 'secondary' },
+  { name: 'FACEBOOK', icon: Facebook, href: 'https://facebook.com', color: 'primary' },
 ] as const;
 
 const Contact = () => {
+  const [isEncrypting, setIsEncrypting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<null | 'success'>(null);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsEncrypting(true);
+
+    // Simulate encryption and sending
+    setTimeout(() => {
+      setIsEncrypting(false);
+      setSubmitStatus('success');
+      setTimeout(() => setSubmitStatus(null), 3000);
+    }, 2500);
+  };
+
   return (
-    <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative min-h-[calc(100vh-theme(space.14))]">
-      {/* Enhanced AI-themed background patterns */}
-      <div className="absolute inset-0 pattern-diagonal opacity-15"></div>
-      <div className="absolute top-20 left-1/4 w-24 h-24 border-2 border-accent/20 rounded-full animate-pulse"></div>
-      <div className="absolute bottom-20 right-1/4 w-20 h-20 border-2 border-primary/20 rounded-lg rotate-45 animate-pulse" style={{ animationDelay: '1s' }}></div>
-      
-      {/* AI Circuit Animations */}
-      <div className="absolute top-32 right-20 animate-bounce" style={{ animationDelay: '0.5s' }}>
-        <Brain className="w-12 h-12 text-accent/30" />
-      </div>
-      <div className="absolute bottom-32 left-20 animate-bounce" style={{ animationDelay: '1.5s' }}>
-        <Cpu className="w-10 h-10 text-primary/30" />
-      </div>
-      <div className="absolute top-1/2 left-10 animate-bounce" style={{ animationDelay: '2.5s' }}>
-        <Zap className="w-8 h-8 text-secondary/30" />
-      </div>
-      
-      <FloatingLetters />
-      
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <MessageCircle className="w-7 h-7 text-primary animate-pulse" />
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary animate-glow">
-              Let's Connect
-            </h1>
-            <Sparkles className="w-7 h-7 text-accent animate-pulse" style={{ animationDelay: '0.5s' }} />
+    <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative min-h-[calc(100vh-theme(space.14))] font-mono pb-32">
+      {/* Background patterns */}
+      <div className="absolute inset-0 pattern-grid opacity-10"></div>
+
+      <div className="max-w-5xl mx-auto relative z-10 pt-16">
+        <div className="text-center mb-16">
+          <div className="flex flex-col items-center justify-center gap-2 mb-6">
+            <div className="flex items-center gap-3">
+              <Lock className="w-8 h-8 text-funky-accent animate-pulse" />
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-widest text-text-base drop-shadow-[0_0_10px_rgba(255,0,60,0.4)]">
+                <ScrambleText text="SECURE_CHANNEL" />
+              </h1>
+            </div>
+            <span className="text-xl text-cyber-blue opacity-80 tracking-widest font-bold">[CONTACT_ME]</span>
           </div>
-          <div className="relative">
-            <p className="text-base sm:text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
-              Hi, I'm <span className="text-primary font-bold text-lg sm:text-xl">Jatin Iyer</span>! 
-              Ready to collaborate on your next 
-              <span className="text-accent font-semibold"> innovative AI project</span>?
-            </p>
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 blur-lg -z-10 rounded-lg"></div>
-          </div>
+          <p className="text-text-muted text-sm sm:text-base max-w-2xl mx-auto uppercase tracking-widest border-b border-funky-accent/20 pb-4 inline-block">
+            [ESTABLISHING_ENCRYPTED_UPLINK...]
+          </p>
         </div>
 
-        <div className="flex flex-col items-center justify-center space-y-12 pt-8">
-          {/* Animated avatar with glow */}
-          <div className="relative animate-fade-in-up" style={{ animationDuration: '0.8s' }}>
-            <div 
-              className="absolute -inset-4 sm:-inset-6 rounded-full bg-gradient-to-r from-primary via-accent to-secondary opacity-70 blur-2xl animate-pulse"
-              style={{ animationDelay: '0.5s', animationDuration: '4s' }}
-            ></div>
-            <Avatar className="relative w-72 h-72 sm:w-96 sm:h-96 border-4 border-primary/50 shadow-2xl">
-              <AvatarImage src="./jatin_coat.png" alt="Jatin Iyer" className="object-cover w-full h-full" />
-              <AvatarFallback className="text-4xl">JI</AvatarFallback>
-            </Avatar>
+        <div className="grid md:grid-cols-2 gap-12 mt-8">
+
+          {/* Left Column: Form */}
+          <div className="cyber-card bg-black/50 border border-funky-accent/50 p-8 shadow-[0_0_20px_rgba(255,0,60,0.15)] relative">
+            <div className="absolute top-0 right-0 p-2 text-xs text-funky-accent bg-funky-accent/10 border-b border-l border-funky-accent/50 flex items-center gap-2">
+              <Shield className="w-3 h-3" />
+              E2E ENCRYPTION ACTIVE
+            </div>
+
+            <h2 className="text-xl font-bold text-funky-accent mb-6 flex items-center gap-2">
+              <Terminal className="w-5 h-5" />
+              TRANSMIT_MESSAGE
+            </h2>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-xs text-text-muted uppercase tracking-widest">IDENTIFICATION_STRING [NAME]</label>
+                <input
+                  type="text"
+                  required
+                  className="w-full bg-black border-2 border-primary-green/20 focus:border-primary-green text-primary-green p-3 outline-none transition-colors"
+                  placeholder="e.g. AGENT_007"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs text-text-muted uppercase tracking-widest">RETURN_NODE [EMAIL]</label>
+                <input
+                  type="email"
+                  required
+                  className="w-full bg-black border-2 border-primary-green/20 focus:border-primary-green text-primary-green p-3 outline-none transition-colors"
+                  placeholder="e.g. intel@mi6.gov"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs text-text-muted uppercase tracking-widest">ENCRYPTED_PAYLOAD [MESSAGE]</label>
+                <textarea
+                  required
+                  rows={4}
+                  className="w-full bg-black border-2 border-primary-green/20 focus:border-primary-green text-primary-green p-3 outline-none transition-colors resize-none"
+                  placeholder="Enter classified intel here..."
+                ></textarea>
+              </div>
+
+              <Button
+                type="submit"
+                disabled={isEncrypting || submitStatus === 'success'}
+                className="w-full h-12 cyber-card bg-funky-accent/20 hover:bg-funky-accent text-funky-accent hover:text-white border border-funky-accent transition-all uppercase tracking-widest font-bold grid place-items-center"
+              >
+                {isEncrypting ? (
+                  <ScrambleText text="[ENCRYPTING_AND_SENDING...]" />
+                ) : submitStatus === 'success' ? (
+                  "TRANSMISSION_SUCCESSFUL"
+                ) : (
+                  <span className="flex items-center gap-2">
+                    <Send className="w-4 h-4" /> EXECUTE_TRANSMISSION
+                  </span>
+                )}
+              </Button>
+            </form>
           </div>
-          
-          {/* Social Links */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {socialLinks.map((social, index) => {
-              const Icon = social.icon;
-              return (
-                <a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group animate-fade-in-up"
-                  style={{ animationDelay: `${500 + index * 150}ms` }}
-                >
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className={`
-                      border-2 
-                      ${socialLinkClasses[social.color]}
-                      transition-all duration-300 transform
-                      group-hover:scale-110 group-hover:shadow-lg
-                      flex items-center gap-2
-                    `}
-                  >
-                    <Icon className="w-6 h-6" />
-                    <span className="text-foreground">{social.name}</span>
-                  </Button>
-                </a>
-              );
-            })}
+
+          {/* Right Column: External Nodes */}
+          <div className="space-y-8 flex flex-col justify-center">
+            <div>
+              <h2 className="text-sm font-bold text-cyber-blue mb-4 flex items-center gap-2 border-b border-cyber-blue/20 pb-2 inline-flex uppercase">
+                <Network className="w-4 h-4" />
+                EXTERNAL_NODES
+              </h2>
+
+              <div className="flex flex-col gap-4 mt-6">
+                {socialLinks.map((social) => {
+                  const Icon = social.icon;
+                  return (
+                    <a
+                      key={social.name}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex border border-primary-green/30 bg-black/40 hover:bg-primary-green/10 hover:border-primary-green transition-all p-4 items-center gap-4 w-full md:w-5/6"
+                    >
+                      <div className="p-2 border border-primary-green/50 bg-black text-primary-green group-hover:scale-110 group-hover:bg-primary-green group-hover:text-black transition-all">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <span className="text-text-base group-hover:text-primary-green transition-colors font-bold tracking-widest">
+                        {social.name}
+                      </span>
+                      <div className="ml-auto w-2 h-2 bg-primary-green rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="p-6 bg-black/40 border border-cyber-blue/30 text-xs text-text-muted mt-8">
+              <p className="mb-2 font-bold text-cyber-blue">[SYSTEM_NOTICE]</p>
+              <p>All transited data is subject to protocol verification. Unauthorized access attempts will be logged and traced.</p>
+              <p className="mt-4 text-primary-green flex items-center gap-2">
+                <span className="w-2 h-2 bg-primary-green rounded-full animate-pulse inline-block" />
+                STATUS: READY AND LISTENING
+              </p>
+            </div>
           </div>
+
         </div>
       </div>
     </div>

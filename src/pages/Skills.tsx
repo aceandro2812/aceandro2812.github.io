@@ -1,74 +1,119 @@
-import Marquee from '@/components/Marquee';
 import SkillCard from '@/components/SkillCard';
 import { usePortfolio } from '@/context/PortfolioContext';
-import { Skill, SkillCategory } from '@/config/types';
+import { SkillCategory } from '@/config/types';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { ScrambleText } from '@/components/ScrambleText';
+import React, { useRef } from 'react';
+import { Terminal } from 'lucide-react';
 
-// Fallback skills data in case context is not available
 const fallbackSkills: SkillCategory[] = [
   {
-    title: "Loading Skills...",
+    title: "[LOADING_MODULES...]",
     skills: [
       { name: "Loading...", icon: "SiReact", color: "#61DAFB" },
     ]
   }
 ];
 
+const MagneticWrapper = ({ children }: { children: React.ReactNode }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 };
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { clientX, clientY } = e;
+    if (!ref.current) return;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
+    const middleX = clientX - (left + width / 2);
+    const middleY = clientY - (top + height / 2);
+    x.set(middleX * 0.2); // Repel/attract factor
+    y.set(middleY * 0.2);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  // Give a continuous slow float when not hovering
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{
+        y: [0, -10, 0],
+      }}
+      transition={{
+        duration: 4 + Math.random() * 2,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+      style={{ x: springX, y: springY }}
+      className="p-2"
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 const Skills = () => {
   const { skills } = usePortfolio();
   const skillsData: SkillCategory[] = skills?.length ? skills : fallbackSkills;
-  
-  console.log('Rendering Skills with data:', skillsData); // Debug log
-  
+
   if (!skillsData || skillsData.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Loading Skills...</h1>
-          <p>Please wait while we load your skills data.</p>
-        </div>
+      <div className="min-h-screen flex items-center justify-center font-mono text-primary-green">
+        <Terminal className="animate-pulse mr-2" /> [LOADING_SKILL_MODULES...]
       </div>
     );
   }
   return (
-    <div className="relative overflow-hidden">
-      {/* Full width background */}
-      <div className="fixed inset-0 -z-10 w-screen">
-        <div className="absolute inset-0 bg-background bg-[linear-gradient(to_right,hsl(var(--primary)_/_0.1),transparent_1px),linear-gradient(to_bottom,hsl(var(--primary)_/_0.1),transparent_1px)] bg-[size:2rem_2rem]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_farthest-side_at_50%_100%,hsl(var(--primary)_/_0.15),transparent)]"></div>
-      </div>
-      
-      {/* Content container */}
-      <div className="container mx-auto py-12 px-4 relative">
+    <div className="relative min-h-screen overflow-hidden font-mono pb-32">
+      {/* Container background mapping */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,65,0.05)_0%,transparent_100%)]" />
 
-      <div className="text-center mb-16 animate-fade-in-up">
-        <h1 className="text-5xl font-display font-bold text-primary animate-glow">My Technical Arsenal</h1>
-        <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-          From crafting beautiful front-ends to architecting intelligent AI systems, here's a look at the tools and technologies I command.
-        </p>
-      </div>
+      <div className="container mx-auto py-16 px-4 relative z-10 w-full">
 
-      <div className="space-y-8">
-        {skillsData.map((category, index) => (
-          <div key={category.title}>
-            <h2 className="text-3xl font-display font-bold text-primary mb-4 text-center">
-              {category.title}
-            </h2>
-            <Marquee pauseOnHover reverse={index % 2 === 1}>
-              {category.skills.map((skill) => ({
-                ...skill,
-                key: skill.name
-              })).map((skill) => (
-                <SkillCard 
-                  key={skill.key} 
-                  name={skill.name} 
-                  icon={skill.icon} 
-                  color={skill.color} 
-                />
-              ))}
-            </Marquee>
-          </div>
-        ))}
-      </div>
+        <div className="text-center mb-16 mt-8 border-b border-primary-green/20 pb-8">
+          <h1 className="text-4xl sm:text-5xl font-bold text-text-base flex flex-col justify-center items-center gap-3">
+            <div className="flex items-center gap-3">
+              <Terminal className="text-primary-green w-8 h-8" />
+              <ScrambleText text="CORE_CAPABILITIES" />
+            </div>
+            <span className="text-xl text-cyber-blue opacity-80 tracking-widest">[SKILLS]</span>
+          </h1>
+          <p className="mt-6 text-sm text-primary-green/70 max-w-2xl mx-auto uppercase tracking-widest bg-primary-green/10 border border-primary-green/30 p-2 animate-pulse inline-block">
+            [USER_INTERACTION_REQUIRED] // HOVER_OVER_NODES_TO_ENGAGE_MAGNETICS
+          </p>
+        </div>
+
+        <div className="space-y-16">
+          {skillsData.map((category, index) => (
+            <div key={category.title} className="relative">
+              <div className="absolute inset-0 bg-primary-green/5 blur-3xl -z-10 rounded-full" />
+              <h2 className="text-xl font-bold text-primary-green mb-8 text-center bg-black/50 border border-primary-green/30 inline-block px-6 py-2 mx-auto left-1/2 relative -translate-x-1/2">
+                {category.title}
+              </h2>
+
+              <div className="flex flex-wrap justify-center gap-4 max-w-5xl mx-auto">
+                {category.skills.map((skill) => (
+                  <MagneticWrapper key={skill.name}>
+                    <SkillCard
+                      name={skill.name}
+                      icon={skill.icon}
+                      color={skill.color}
+                    />
+                  </MagneticWrapper>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

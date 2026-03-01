@@ -1,207 +1,180 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import FloatingLetters from "@/components/FloatingLetters";
-import { BookOpen, Flower2, Sun } from "lucide-react";
+import { BookOpen, Terminal, Code } from "lucide-react";
 import { useEffect } from "react";
+import { ScrambleText } from "@/components/ScrambleText";
+import { motion } from "framer-motion";
 
 const VedicLearnings = () => {
   useEffect(() => {
-    // Make navbar dark/contrasting for this page
-    const navbar = document.querySelector('header');
-    if (navbar) {
-      navbar.style.backgroundColor = 'rgba(92, 51, 23, 0.95)'; // Dark brown with slight transparency
-      navbar.style.backdropFilter = 'blur(8px)';
-      navbar.style.borderBottom = '1px solid rgba(217, 119, 6, 0.3)';
-      navbar.style.color = 'white';
-      
-      // Make all navbar links white
-      const navLinks = navbar.querySelectorAll('a');
-      navLinks.forEach(link => {
-        (link as HTMLElement).style.color = 'white';
-      });
-    }
-    
-    // Cleanup on unmount
+    // Custom styling for navbar on this page is removed, we want to keep the dark base theme
+    // but we can tint the global background a bit
+    document.body.style.backgroundColor = '#050200'; // Very dark amber tint
     return () => {
-      if (navbar) {
-        navbar.style.backgroundColor = '';
-        navbar.style.backdropFilter = '';
-        navbar.style.borderBottom = '';
-        navbar.style.color = '';
-        
-        // Reset navbar links color
-        const navLinks = navbar.querySelectorAll('a');
-        navLinks.forEach(link => {
-          (link as HTMLElement).style.color = '';
-        });
-      }
+      document.body.style.backgroundColor = '';
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 w-full h-full bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 font-serif overflow-auto">
-      <FloatingLetters />
-      
-      {/* Decorative elements */}
-      <div className="absolute top-10 left-10 text-amber-400/20 dark:text-amber-600/20">
-        <Flower2 size={80} />
-      </div>
-      <div className="absolute bottom-10 right-10 text-amber-400/20 dark:text-amber-600/20">
-        <Sun size={80} />
-      </div>
-      <div className="absolute top-1/3 right-20 text-amber-400/10 dark:text-amber-600/10">
-        <BookOpen size={60} />
-      </div>
+    <div className="min-h-screen font-mono text-amber-500 overflow-hidden relative pb-32">
+      {/* Dark Amber Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(245,158,11,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(245,158,11,0.05)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(245,158,11,0.1),rgba(0,0,0,0))] pointer-events-none" />
 
-      <div className="relative z-10 w-full min-h-screen flex items-center justify-center p-4 sm:p-8 pt-20">
-        <Card className="w-full max-w-5xl bg-gradient-to-br from-amber-100/90 to-orange-100/90 backdrop-blur-lg border-2 border-amber-300/30 shadow-2xl shadow-amber-900/20 animate-fade-in-up">
-          <CardHeader className="text-center border-b border-amber-300/30 bg-gradient-to-r from-amber-200/50 to-orange-200/50">
-            <div className="flex justify-center mb-4">
-              <div className="p-4 rounded-full bg-amber-300/30">
-                <BookOpen className="h-12 w-12 text-amber-700" />
-              </div>
+      <div className="relative z-10 w-full flex flex-col items-center justify-center p-4 sm:p-8 pt-24">
+
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="flex justify-center mb-4">
+            <div className="w-16 h-16 rounded-full border border-amber-500/30 flex items-center justify-center bg-amber-500/5 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+              <BookOpen className="h-8 w-8 text-amber-500 animate-pulse" />
             </div>
-            <CardTitle className="text-5xl font-display font-bold text-amber-800 drop-shadow-lg">
-              इंडिक शिक्षा
-            </CardTitle>
-            <p className="text-2xl font-serif text-amber-700 mt-2">
-              Indic Education
-            </p>
-            <div className="flex justify-center mt-4">
-              <div className="w-32 h-1 bg-gradient-to-r from-transparent via-amber-600 to-transparent rounded-full"></div>
-            </div>
-          </CardHeader>
-          
-          <CardContent className="p-8">
-            <div className="space-y-8">
-              <div className="grid md:grid-cols-1 gap-8 max-w-4xl mx-auto">
-                {/* Krishna Yajurveda */}
-                <div className="relative p-8 bg-gradient-to-br from-amber-50/80 to-orange-50/80 rounded-2xl border-2 border-amber-300/40 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="absolute -top-4 left-8">
-                    <div className="bg-amber-600 text-white px-4 py-2 rounded-full font-bold text-sm">
-                      कृष्ण यजुर्वेद
-                    </div>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-bold uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-600 drop-shadow-[0_0_10px_rgba(245,158,11,0.3)] mb-2">
+            <ScrambleText text="ANCIENT_ALGORITHMS" />
+          </h1>
+          <p className="text-amber-500/70 text-sm tracking-widest max-w-2xl mx-auto uppercase">
+            [DECODING_VEDIC_SOURCE_CODE...] // <span className="text-orange-500">INDIC_EDUCATION_MATRIX</span>
+          </p>
+        </div>
+
+        <div className="w-full max-w-5xl space-y-12">
+          {/* Krishna Yajurveda Scroll */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative p-1 bg-gradient-to-b from-amber-500/20 to-transparent clip-path-cyber-card"
+          >
+            <div className="absolute top-0 left-0 w-8 h-px bg-amber-500 shadow-[0_0_10px_#f59e0b]" />
+            <div className="absolute top-0 left-0 w-px h-8 bg-amber-500 shadow-[0_0_10px_#f59e0b]" />
+            <div className="bg-black/60 backdrop-blur-md p-8 border border-amber-500/10 h-full w-full relative">
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+
+                <div className="flex-1 w-full">
+                  <div className="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs font-bold tracking-widest mb-6">
+                    <Terminal className="inline w-3 h-3 mr-2" />
+                    FILE: KRISHNA_YAJURVEDA.ved
                   </div>
-                  
-                  {/* Rishi writing image */}
-                  <div className="float-right ml-6 mb-4">
-                    <div className="w-32 h-32 rounded-lg overflow-hidden shadow-lg border-2 border-amber-300/40">
-                      <img 
-                        src="./brahm.png" 
-                        alt="Ancient wisdom and learning"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <p className="text-xs text-amber-600 text-center mt-2 italic">Ancient Vedic Learning</p>
-                  </div>
-                  
-                  <div className="mt-4">
-                    <h4 className="font-bold text-2xl text-amber-800 mb-4 font-sanskrit">
-                      Krishna Yajurveda
-                    </h4>
-                    <div className="space-y-3 text-lg">
-                      <div className="flex items-start gap-3">
-                        <Sun className="h-5 w-5 text-amber-600 mt-1 flex-shrink-0" />
-                        <div>
-                          <p className="font-semibold text-amber-800">
-                            Mahamahopadhyaya Sheshadrinatha Sastrigal
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Sun className="h-5 w-5 text-amber-600 mt-1 flex-shrink-0" />
-                        <div>
-                          <p className="font-semibold text-amber-800">
-                            Veda Ratnam Dr Ramesh Dravid Ghanapathi (Kashi)
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Sun className="h-5 w-5 text-amber-600 mt-1 flex-shrink-0" />
-                        <div>
-                          <p className="font-semibold text-amber-800">
-                            Rajesh Iyer
-                          </p>
-                        </div>
-                      </div>
-                      <div className="mt-4 p-4 bg-amber-100/50 rounded-lg border border-amber-300/30">
-                        <p className="text-amber-700 font-serif">
-                          <span className="font-bold">Institution:</span> Shankara Shanti Nilayam Patashala, Kalady, Kerala
-                        </p>
-                        <p className="text-amber-600 text-sm mt-1 italic">
-                          (Online post-Covid adaptation)
-                        </p>
-                      </div>
+
+                  <h3 className="text-2xl font-bold mb-6 text-amber-400">
+                    <ScrambleText text="Krishna Yajurveda" />
+                  </h3>
+
+                  <div className="space-y-4 text-sm text-amber-500/80">
+                    <p className="flex items-start gap-2 border-l-2 border-amber-500/30 pl-4 py-1 hover:border-amber-400 transition-colors">
+                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
+                      Mahamahopadhyaya Sheshadrinatha Sastrigal
+                    </p>
+                    <p className="flex items-start gap-2 border-l-2 border-amber-500/30 pl-4 py-1 hover:border-amber-400 transition-colors">
+                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
+                      Veda Ratnam Dr Ramesh Dravid Ghanapathi (Kashi)
+                    </p>
+                    <p className="flex items-start gap-2 border-l-2 border-amber-500/30 pl-4 py-1 hover:border-amber-400 transition-colors">
+                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
+                      Rajesh Iyer
+                    </p>
+
+                    <div className="mt-6 p-4 bg-amber-500/5 border border-amber-500/20 rounded">
+                      <p className="text-amber-400">
+                        <span className="font-bold opacity-70">LOCATION_NODE:</span> Shankara Shanti Nilayam Patashala, Kalady, Kerala
+                      </p>
+                      <p className="text-amber-500/50 text-xs mt-2 italic">
+                        [TRANSMISSION: Online post-Covid adaptation]
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Sanskrit */}
-                <div className="relative p-8 bg-gradient-to-br from-orange-50/80 to-red-50/80 rounded-2xl border-2 border-orange-300/40 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="absolute -top-4 left-8">
-                    <div className="bg-orange-600 text-white px-4 py-2 rounded-full font-bold text-sm">
-                      संस्कृत
-                    </div>
+                {/* Holographic Image Representation */}
+                <div className="w-full md:w-64 shrink-0 relative group">
+                  <div className="absolute inset-0 bg-amber-500/20 blur-xl group-hover:bg-amber-400/30 transition-all z-0" />
+                  <div className="relative z-10 w-full aspect-square border-2 border-amber-500/30 bg-black/50 p-2 transform rotate-1 hover:rotate-0 transition-transform">
+                    <img
+                      src="./brahm.png"
+                      alt="Ancient wisdom encrypted"
+                      className="w-full h-full object-cover filter contrast-[1.5] brightness-75 sepia hue-rotate-[15deg] saturate-200 mix-blend-screen opacity-80"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(245,158,11,0.1)_50%)] bg-[length:100%_4px] pointer-events-none" />
                   </div>
-                  
-                  {/* Panini image */}
-                  <div className="float-right ml-6 mb-4">
-                    <div className="w-32 h-32 rounded-lg overflow-hidden shadow-lg border-2 border-orange-300/40">
-                      <img 
-                        src="./sans.png" 
-                        alt="Sanskrit grammar and literature"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <p className="text-xs text-orange-600 text-center mt-2 italic">Sanskrit Grammar</p>
-                  </div>
-                  
-                  <div className="mt-4">
-                    <h4 className="font-bold text-2xl text-orange-800 mb-4 font-sanskrit">
-                      Sanskrit
-                    </h4>
-                    <div className="space-y-3 text-lg">
-                      <div className="flex items-start gap-3">
-                        <Flower2 className="h-5 w-5 text-orange-600 mt-1 flex-shrink-0" />
-                        <div>
-                          <p className="font-semibold text-orange-800">
-                            Swami Guhatmananda Saraswati
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Flower2 className="h-5 w-5 text-orange-600 mt-1 flex-shrink-0" />
-                        <div>
-                          <p className="font-semibold text-orange-800">
-                            Brahmaleen Swami Omakarananda Brahmendra Saraswati Avadhoota Swami
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Flower2 className="h-5 w-5 text-orange-600 mt-1 flex-shrink-0" />
-                        <div>
-                          <p className="font-semibold text-orange-800">
-                            Rajesh Iyer
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="text-center mt-3 text-xs text-amber-600 tracking-widest">
+                    [VISUAL_DATA_DECRYPTED]
                   </div>
                 </div>
-              </div>
 
-              {/* Footer quote */}
-              <div className="text-center mt-12 pt-8 border-t border-amber-300/30">
-                <p className="text-2xl font-sanskrit text-amber-700 mb-2">
-                  गुरुर्ब्रह्मा गुरुर्विष्णुः गुरुर्देवो महेश्वरः
-                </p>
-                <p className="text-lg text-amber-600 italic font-serif">
-                  "The Guru is Brahma, the Guru is Vishnu, the Guru is Maheshvara"
-                </p>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </motion.div>
+
+          {/* Sanskrit Grammar Scroll */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative p-1 bg-gradient-to-b from-orange-500/20 to-transparent clip-path-cyber-card"
+          >
+            <div className="absolute top-0 right-0 w-8 h-px bg-orange-500 shadow-[0_0_10px_#f97316]" />
+            <div className="absolute top-0 right-0 w-px h-8 bg-orange-500 shadow-[0_0_10px_#f97316]" />
+            <div className="bg-black/60 backdrop-blur-md p-8 border border-orange-500/10 h-full w-full relative">
+              <div className="flex flex-col md:flex-row-reverse gap-8 items-start">
+
+                <div className="flex-1 w-full text-right">
+                  <div className="inline-block px-3 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold tracking-widest mb-6">
+                    <Terminal className="inline w-3 h-3 mr-2" />
+                    FILE: SANSKRIT_GRAMMAR.sys
+                  </div>
+
+                  <h3 className="text-2xl font-bold mb-6 text-orange-400">
+                    <ScrambleText text="Sanskrit Language" />
+                  </h3>
+
+                  <div className="space-y-4 text-sm text-orange-500/80 flex flex-col items-end">
+                    <p className="flex items-start justify-end gap-2 border-r-2 border-orange-500/30 pr-4 py-1 hover:border-orange-400 transition-colors w-full text-right">
+                      Swami Guhatmananda Saraswati
+                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-orange-600" />
+                    </p>
+                    <p className="flex items-start justify-end gap-2 border-r-2 border-orange-500/30 pr-4 py-1 hover:border-orange-400 transition-colors w-full text-right">
+                      Brahmaleen Swami Omakarananda Brahmendra Saraswati
+                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-orange-600" />
+                    </p>
+                    <p className="flex items-start justify-end gap-2 border-r-2 border-orange-500/30 pr-4 py-1 hover:border-orange-400 transition-colors w-full text-right">
+                      Rajesh Iyer
+                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-orange-600" />
+                    </p>
+                  </div>
+                </div>
+
+                {/* Holographic Image Representation */}
+                <div className="w-full md:w-64 shrink-0 relative group">
+                  <div className="absolute inset-0 bg-orange-500/20 blur-xl group-hover:bg-orange-400/30 transition-all z-0" />
+                  <div className="relative z-10 w-full aspect-square border-2 border-orange-500/30 bg-black/50 p-2 transform -rotate-1 hover:rotate-0 transition-transform">
+                    <img
+                      src="./sans.png"
+                      alt="Sanskrit encrypted"
+                      className="w-full h-full object-cover filter contrast-[1.5] brightness-75 sepia hue-rotate-[-10deg] saturate-200 mix-blend-screen opacity-80"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(249,115,22,0.1)_50%)] bg-[length:100%_4px] pointer-events-none" />
+                  </div>
+                  <div className="text-center mt-3 text-xs text-orange-600 tracking-widest">
+                    [LITERAL_MAPPING_EXTRACTED]
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </motion.div>
+
+        </div>
+
+        {/* Footer quote */}
+        <div className="text-center mt-20 pt-8 border-t border-amber-500/20 max-w-3xl w-full">
+          <p className="text-xl md:text-2xl text-amber-500 mb-2 font-bold drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">
+            <ScrambleText text="गुरुर्ब्रह्मा गुरुर्विष्णुः गुरुर्देवो महेश्वरः" />
+          </p>
+          <p className="text-sm text-amber-600/60 uppercase tracking-widest mt-4">
+            [TRANSLATION: "The Guru is Brahma, the Guru is Vishnu, the Guru is Maheshvara"]
+          </p>
+        </div>
+
       </div>
     </div>
   );
