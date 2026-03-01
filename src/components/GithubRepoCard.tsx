@@ -1,6 +1,7 @@
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Star, GitFork, ExternalLink } from "lucide-react";
+import Tilt from "react-parallax-tilt";
+import { cn } from "@/lib/utils";
 
 interface Repo {
   name: string;
@@ -13,35 +14,45 @@ interface Repo {
 
 const GithubRepoCard = ({ repo }: { repo: Repo }) => {
   return (
-    <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="group h-full">
-      <Card className="bg-card/50 border-border/20 h-full flex flex-col transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
-        <CardHeader className="p-4 sm:p-6">
-          <CardTitle className="flex items-center justify-between text-primary text-lg sm:text-xl">
-            <span className="truncate pr-2">{repo.name}</span>
-            <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-          </CardTitle>
-          <CardDescription className="h-8 sm:h-10 text-card-foreground/80 overflow-hidden text-ellipsis text-sm sm:text-base">
-            {repo.description || "No description available."}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex-grow flex items-end justify-between text-xs sm:text-sm text-muted-foreground p-4 sm:p-6 pt-0">
-          <div className="flex items-center gap-1">
-            <div className={`w-3 h-3 rounded-full ${repo.language ? 'bg-primary' : 'bg-muted'}`}></div>
+    <Tilt
+      tiltMaxAngleX={8}
+      tiltMaxAngleY={8}
+      scale={1.02}
+      transitionSpeed={2000}
+      className="h-full w-full group"
+    >
+      <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="block h-full cyber-card relative flex flex-col transition-all duration-300 bg-base-bg/80 border border-primary-green/30 group-hover:border-primary-green p-6 font-mono">
+        <div className="absolute top-0 inset-x-0 h-[100%] bg-gradient-to-b from-primary-green/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+        <div className="flex items-center justify-between text-primary-green text-lg sm:text-lg font-bold mb-3 z-10">
+          <span className="truncate flex items-center gap-2">
+            <span className="text-cyber-blue">&gt;</span>{repo.name}
+          </span>
+          <ExternalLink className="h-4 w-4 text-primary-green/50 group-hover:text-primary-green transition-colors flex-shrink-0" />
+        </div>
+
+        <p className="flex-1 text-text-muted text-sm sm:text-xs leading-relaxed z-10 line-clamp-3">
+          {repo.description || "NO_DESCRIPTION_PROVIDED_IN_DATA_STREAM"}
+        </p>
+
+        <div className="mt-6 flex items-end justify-between text-xs text-primary-green/70 pt-4 border-t border-primary-green/10 z-10">
+          <div className="flex items-center gap-2 border border-primary-green/30 bg-primary-green/10 px-2 py-1">
+            <div className={`w-2 h-2 ${repo.language ? 'bg-cyber-blue animate-pulse' : 'bg-muted'}`}></div>
             <span className="truncate">{repo.language || 'N/A'}</span>
           </div>
-          <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
-            <div className="flex items-center gap-1">
-              <Star className="h-3 w-3 sm:h-4 sm:w-4" />
+          <div className="flex items-center gap-4 flex-shrink-0 font-mono">
+            <div className="flex items-center gap-1 group-hover:text-primary-green transition-colors">
+              <Star className="h-3 w-3" />
               <span>{repo.stargazers_count}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <GitFork className="h-3 w-3 sm:h-4 sm:w-4" />
+            <div className="flex items-center gap-1 group-hover:text-primary-green transition-colors">
+              <GitFork className="h-3 w-3" />
               <span>{repo.forks_count}</span>
             </div>
           </div>
-        </CardContent>
-      </Card>
-    </a>
+        </div>
+      </a>
+    </Tilt>
   );
 };
 

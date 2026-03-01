@@ -5,32 +5,32 @@ import { PortfolioConfig } from './types';
 const portfolioConfig: PortfolioConfig = {
   personalInfo: {
     name: "Jatin Iyer",
-    title: "AI Developer & Researcher",
-    bio: "Passionate about building intelligent systems and solving complex problems with AI and machine learning.",
+    title: "AI DEV. OPR / RESEARCH / AGENT_ID: JATIN_2812",
+    bio: "Passionate about orchestrating autonomous AI agentic systems and developing neural-net level solutions for complex computational problems.",
     avatar: "/avatar.jpg",
     github: "aceandro2812"
   },
   experience: [
     {
       company: "Mettler Toledo International INC",
-      role: "AI Solution Developer",
+      role: "AI Solution Developer [OPERATIVE CLASS]",
       duration: "2023 - Present",
-      description: "Developing AI solutions for internal enterprise clients. Specialized in natural language processing and Generative AI and AI agents.",
-      tech: ["Python", "TensorFlow", "PyTorch", "AWS", "Docker","LangChain","Hugging Face","OpenAI","Streamlit","Gradio","LangSmith","LangGraph","Crewai"]
+      description: "Developing specialized AI protocols for internal enterprise nodes. Focus on NLP pipelines, Generative AI, and autonomous agent collaboration architectures.",
+      tech: ["Python", "TensorFlow", "PyTorch", "AWS", "Docker", "LangChain", "Hugging Face", "OpenAI", "Streamlit", "Gradio", "LangSmith", "LangGraph", "Crewai"]
     },
     {
       company: "Mettler Toledo International INC",
-      role: "Intern",
+      role: "Intern [TRAINEE PROTOCOL]",
       duration: "2023 2 months",
-      description: "Developing AI solutions for internal enterprise clients. Specialized in natural language processing and Generative AI and AI agents.",
-      tech: ["Python", "Jupyter","Django","FASTAPI","PostgreSQL","AWS","Git"]
+      description: "Assisted in the deployment of foundational AI models and integration tools. Gained clearance level in basic NLP operations.",
+      tech: ["Python", "Jupyter", "Django", "FASTAPI", "PostgreSQL", "AWS", "Git"]
     },
     {
       company: "Sahacharya Digital Solutions",
       role: "Software Engineer intern",
       duration: "2021 - 2022",
       description: "Developed and maintained backend systems for high-traffic web applications. Focused on optimizing performance and ensuring scalability.",
-      tech: ["Node.js", "Express","aws","git"]
+      tech: ["Node.js", "Express", "aws", "git"]
     },
     {
       company: "Vedant SoftwareSolutions PVT LTD",
@@ -86,22 +86,22 @@ const portfolioConfig: PortfolioConfig = {
   ],
   projects: [
     {
-      title: "SwasthyaSetu",
-      description: "SwasthyaSetu is an open-source, AI-powered medical triage and routing assistant designed for accessibility and social impact. It helps users describe their symptoms, receive a preliminary diagnosis, get triaged for urgency, and find local healthcare providers—all with a modern, user-friendly interface..",
+      title: "PROTOCOL: SwasthyaSetu",
+      description: "Autonomous, AI-powered medical triage routine deployed for public access. Parses user symptoms to output preliminary diagnostics and route to local healthcare nodes.",
       imageUrl: "/ss.png",
-      tags: ["Python","Cloud", "Docker","LangGraph","Google Gemini","FAISS","RAG","Agentic AI"],
+      tags: ["Python", "Cloud", "Docker", "LangGraph", "Google Gemini", "FAISS", "RAG", "Agentic AI"],
       link: "https://github.com/aceandro2812/swasthyasetu"
     },
     {
-      title: "KachraBOT",
-      description: "Autonomous garbage detection robot with FOMO model trained and fitted onto an ESP32 CAM , ruling out use of costly RaspberryPI.",
+      title: "UNIT: KachraBOT",
+      description: "Autonomous garbage detection hardware unit utilizing FOMO ML model on an ESP32 CAM module. High efficiency, low operational cost.",
       imageUrl: "/kcb.png",
       tags: ["Python", "FastAPI", "spaCy", "Docker", "Kubernetes"],
       link: "https://github.com/aceandro2812/GARBOTFINAL"
     },
     {
-      title: "DysAssist",
-      description: "Interactive android application that utilizes Tensorflow On Device ML to OCR text real time and display it in open dyslexic font potentially helping dyslexia patients to read and breeze through life easily.",
+      title: "SYSTEM: DysAssist",
+      description: "Mobile interface utilizing on-device TensorFlow ML to OCR text feeds real-time and translate to open-dyslexic rendering protocols, augmenting user readability.",
       imageUrl: "/dys.png",
       tags: ["React", "TensorFlow.js", "D3.js", "Node.js"],
       link: "https://github.com/aceandro2812/DYSASSIST2.0"
@@ -109,7 +109,7 @@ const portfolioConfig: PortfolioConfig = {
   ],
   skills: [
     {
-      title: "Programming & Markup",
+      title: "[COMBAT_GEAR] // FRONTEND & MARKUP",
       skills: [
         { name: "Python", icon: "SiPython", color: "#3776AB" },
         { name: "JavaScript", icon: "SiJavascript", color: "#F7DF1E" },
@@ -121,7 +121,7 @@ const portfolioConfig: PortfolioConfig = {
       ]
     },
     {
-      title: "Frameworks & Libraries",
+      title: "[MAINFRAME] // BACKEND & FRAMEWORKS",
       skills: [
         // { name: "React", icon: "SiReact", color: "#61DAFB" },
         // { name: "Next.js", icon: "SiNextdotjs", color: "#FFFFFF" },
@@ -132,7 +132,7 @@ const portfolioConfig: PortfolioConfig = {
       ]
     },
     {
-      title: "Generative AI & Machine Learning",
+      title: "[NEURAL_NETS] // AI & MACHINE LEARNING",
       skills: [
         { name: "LLM APIs", icon: "BrainCircuit", color: "#8B5CF6" },
         { name: "LangChain", icon: "SiLangchain", color: "#A855F7" },
@@ -142,7 +142,7 @@ const portfolioConfig: PortfolioConfig = {
       ]
     },
     {
-      title: "Databases & Cloud",
+      title: "[VAULT] // DATABASES & CLOUD",
       skills: [
         { name: "MongoDB", icon: "SiMongodb", color: "#47A248" },
         { name: "PostgreSQL", icon: "SiPostgresql", color: "#4169E1" },
@@ -153,7 +153,7 @@ const portfolioConfig: PortfolioConfig = {
       ]
     },
     {
-      title: "Developer Tools",
+      title: "[TOOLKIT] // DEV OPS & UTILITIES",
       skills: [
         { name: "Git", icon: "SiGit", color: "#F05032" },
         { name: "GitHub", icon: "SiGithub", color: "#FFFFFF" },
