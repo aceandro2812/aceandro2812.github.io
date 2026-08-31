@@ -1,62 +1,111 @@
-import EducationCard from '@/components/EducationCard';
-import { GraduationCap, Sparkles, BookOpen, Award } from 'lucide-react';
+import { GraduationCap, Award, ExternalLink } from 'lucide-react';
 import { usePortfolio } from '@/context/PortfolioContext';
+import { Section, SectionHeading, Panel, Reveal, Chip } from '@/components/primitives';
+import type { EducationItem } from '@/config/types';
+import Seo from '@/components/Seo';
+
+const Card = ({ item, verified }: { item: EducationItem; verified?: boolean }) => {
+  const inner = (
+    <Panel interactive className="flex h-full flex-col p-5 sm:p-6">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h3 className="font-display text-fluid-base font-bold uppercase tracking-wide text-text-base">
+            {item.degree}
+          </h3>
+          <p className="mt-1 font-sans text-fluid-sm font-medium text-cyber-blue">
+            {item.institution}
+          </p>
+        </div>
+        {item.link && (
+          <ExternalLink
+            className="h-4 w-4 shrink-0 text-text-muted transition-colors group-hover:text-primary-green"
+            aria-hidden="true"
+          />
+        )}
+      </div>
+
+      <div className="mt-3">
+        <Chip tone="muted">{item.duration}</Chip>
+        {verified && item.link && (
+          <Chip tone="green" className="ml-2">
+            Verified
+          </Chip>
+        )}
+      </div>
+
+      <p className="mt-4 flex-1 font-sans text-fluid-sm leading-relaxed text-text-muted text-pretty">
+        {item.description}
+      </p>
+    </Panel>
+  );
+
+  if (item.link) {
+    return (
+      <a
+        href={item.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block h-full"
+        aria-label={`${item.degree} — view credential`}
+      >
+        {inner}
+      </a>
+    );
+  }
+  return <div className="group h-full">{inner}</div>;
+};
 
 const Education = () => {
   const { education, certifications } = usePortfolio();
+
   return (
-    <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative min-h-[calc(100vh-theme(space.14))]">
-      {/* Enhanced background patterns */}
-      <div className="absolute inset-0 pattern-diagonal opacity-15"></div>
-      <div className="absolute top-20 left-1/4 w-20 h-20 border-2 border-accent/20 rounded-full animate-pulse"></div>
-      <div className="absolute bottom-20 right-1/4 w-16 h-16 border-2 border-primary/20 rounded-lg rotate-45 animate-pulse" style={{ animationDelay: '1s' }}></div>
-      
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <GraduationCap className="w-6 h-6 text-primary animate-pulse" />
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">
-              Educational Journey
-            </h1>
-            <BookOpen className="w-6 h-6 text-accent animate-pulse" style={{ animationDelay: '0.5s' }} />
-          </div>
-          <div className="relative">
-            <p className="text-base sm:text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto leading-relaxed">
-              Building the foundation for <span className="text-primary font-semibold">innovation</span> and 
-              <span className="text-accent font-semibold"> technological excellence</span>
-            </p>
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary/10 to-secondary/10 blur-lg -z-10 rounded-lg"></div>
-          </div>
-        </div>
+    <>
+      <Seo
+        title="Education & Certifications"
+        description="B.E. Computer Science from SIES GST, plus specialist AI certifications from Google DeepMind, NVIDIA, Hugging Face and DeepLearning.AI."
+        path="/education"
+      />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
-          {education.map((item, index) => (
-            <EducationCard key={index} item={item} />
-          ))}
-        </div>
+      <Section wide className="py-14 sm:py-20">
+        <SectionHeading
+          as="h1"
+          eyebrow="Foundations"
+          title="Where the fundamentals came from"
+          subtitle="A computer science degree for the theory, and a steady habit of certifications to keep pace with a field that reinvents itself every six months."
+        />
 
-        <div className="mt-16 sm:mt-20">
-          <div className="text-center mb-12 sm:mb-16">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Award className="w-6 h-6 text-primary animate-pulse" />
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary">
-                Certifications & Specializations
-              </h2>
-              <Sparkles className="w-6 h-6 text-accent animate-pulse" style={{ animationDelay: '0.5s' }} />
-            </div>
-            <p className="text-base sm:text-lg text-foreground/80 max-w-2xl mx-auto leading-relaxed">
-              Validating expertise and commitment to continuous learning.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
-            {certifications.map((item, index) => (
-              <EducationCard key={index} item={item} />
+        <div className="mt-10">
+          <h2 className="mb-4 inline-flex items-center gap-2 font-display text-fluid-base font-bold uppercase tracking-wide text-primary-green">
+            <GraduationCap className="h-4 w-4" aria-hidden="true" />
+            Formal education
+          </h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            {education.map((item, i) => (
+              <Reveal key={item.institution} delay={i * 0.05}>
+                <Card item={item} />
+              </Reveal>
             ))}
           </div>
         </div>
-      </div>
-    </div>
+
+        <div className="mt-14">
+          <h2 className="mb-1 inline-flex items-center gap-2 font-display text-fluid-base font-bold uppercase tracking-wide text-primary-green">
+            <Award className="h-4 w-4" aria-hidden="true" />
+            Certifications
+          </h2>
+          <p className="mb-4 font-sans text-fluid-sm text-text-muted">
+            Every certificate below links to the issuer for verification — click through.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {certifications.map((item, i) => (
+              <Reveal key={item.degree} delay={i * 0.05}>
+                <Card item={item} verified />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </Section>
+    </>
   );
 };
 

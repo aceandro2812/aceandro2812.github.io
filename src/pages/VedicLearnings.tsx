@@ -1,183 +1,135 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import FloatingLetters from "@/components/FloatingLetters";
-import { BookOpen, Terminal, Code } from "lucide-react";
-import { useEffect } from "react";
-import { ScrambleText } from "@/components/ScrambleText";
-import { motion } from "framer-motion";
+import { BookOpen, MapPin, User } from 'lucide-react';
+import { Section, SectionHeading, Panel, Reveal, Chip } from '@/components/primitives';
+import Seo from '@/components/Seo';
 
-const VedicLearnings = () => {
-  useEffect(() => {
-    // Custom styling for navbar on this page is removed, we want to keep the dark base theme
-    // but we can tint the global background a bit
-    document.body.style.backgroundColor = '#050200'; // Very dark amber tint
-    return () => {
-      document.body.style.backgroundColor = '';
-    };
-  }, []);
+const studies = [
+  {
+    title: 'Krishna Yajurveda',
+    file: 'KRISHNA_YAJURVEDA',
+    image: '/brahm.webp',
+    alt: 'Illustration representing Vedic study',
+    teachers: [
+      'Mahamahopadhyaya Sheshadrinatha Sastrigal',
+      'Veda Ratnam Dr Ramesh Dravid Ghanapathi (Kashi)',
+      'Rajesh Iyer',
+    ],
+    location: 'Shankara Shanti Nilayam Patashala, Kalady, Kerala',
+    note: 'Taught online following the post-Covid adaptation of the patashala.',
+    body: 'An oral tradition preserved with error-correcting recitation patterns — ghana, jata and krama — that encode the same text in multiple interleavings so corruption in transmission becomes detectable. It is, functionally, a checksum designed three thousand years before the term existed.',
+  },
+  {
+    title: 'Sanskrit Language & Grammar',
+    file: 'SANSKRIT_GRAMMAR',
+    image: '/sans.webp',
+    alt: 'Illustration representing Sanskrit study',
+    teachers: [
+      'Swami Guhatmananda Saraswati',
+      'Brahmaleen Swami Omakarananda Brahmendra Saraswati',
+      'Rajesh Iyer',
+    ],
+    location: 'Traditional guru–shishya instruction',
+    note: 'Ongoing study.',
+    body: "Pāṇini's Aṣṭādhyāyī describes the whole of Sanskrit in roughly 4,000 ordered rules, with meta-rules governing which applies when conflicts arise. It is a formal generative grammar with an inheritance hierarchy and conflict resolution — the concepts we now teach as compiler design.",
+  },
+];
 
-  return (
-    <div className="min-h-screen font-mono text-amber-500 overflow-hidden relative pb-32">
-      {/* Dark Amber Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(245,158,11,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(245,158,11,0.05)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(245,158,11,0.1),rgba(0,0,0,0))] pointer-events-none" />
+const VedicLearnings = () => (
+  <>
+    <Seo
+      title="Archives — Vedic & Sanskrit Studies"
+      description="Jatin Iyer's parallel study of the Krishna Yajurveda and Sanskrit grammar, and what Pāṇini's formal rule systems have in common with modern computer science."
+      path="/vedic-learnings"
+    />
 
-      <div className="relative z-10 w-full flex flex-col items-center justify-center p-4 sm:p-8 pt-24">
+    <Section className="py-14 sm:py-20">
+      <SectionHeading
+        as="h1"
+        eyebrow="The other archive"
+        title="Ancient algorithms"
+        subtitle="Alongside the engineering work I study the Krishna Yajurveda and Sanskrit grammar. This isn't a hobby section — it is where I learned that precise, rule-based systems are older than the machines we run them on."
+      />
 
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 rounded-full border border-amber-500/30 flex items-center justify-center bg-amber-500/5 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-              <BookOpen className="h-8 w-8 text-amber-500 animate-pulse" />
-            </div>
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-bold uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-600 drop-shadow-[0_0_10px_rgba(245,158,11,0.3)] mb-2">
-            <ScrambleText text="ANCIENT_ALGORITHMS" />
-          </h1>
-          <p className="text-amber-500/70 text-sm tracking-widest max-w-2xl mx-auto uppercase">
-            [DECODING_VEDIC_SOURCE_CODE...] // <span className="text-orange-500">INDIC_EDUCATION_MATRIX</span>
+      <Reveal>
+        <Panel className="mt-8 border-l-2 border-l-cyber-blue p-5 sm:p-6">
+          <p className="font-sans text-fluid-base leading-relaxed text-text-base text-pretty">
+            Pāṇini wrote a complete formal grammar for a natural language around the 5th century
+            BCE. Backus and Naur arrived at a comparable notation for programming languages in 1959
+            — which is why the field sometimes calls it{' '}
+            <span className="text-primary-green">Panini–Backus form</span>. Studying one tradition
+            makes the other easier to see clearly.
           </p>
-        </div>
+        </Panel>
+      </Reveal>
 
-        <div className="w-full max-w-5xl space-y-12">
-          {/* Krishna Yajurveda Scroll */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative p-1 bg-gradient-to-b from-amber-500/20 to-transparent clip-path-cyber-card"
-          >
-            <div className="absolute top-0 left-0 w-8 h-px bg-amber-500 shadow-[0_0_10px_#f59e0b]" />
-            <div className="absolute top-0 left-0 w-px h-8 bg-amber-500 shadow-[0_0_10px_#f59e0b]" />
-            <div className="bg-black/60 backdrop-blur-md p-8 border border-amber-500/10 h-full w-full relative">
-              <div className="flex flex-col md:flex-row gap-8 items-start">
-
-                <div className="flex-1 w-full">
-                  <div className="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs font-bold tracking-widest mb-6">
-                    <Terminal className="inline w-3 h-3 mr-2" />
-                    FILE: KRISHNA_YAJURVEDA.ved
-                  </div>
-
-                  <h3 className="text-2xl font-bold mb-6 text-amber-400">
-                    <ScrambleText text="Krishna Yajurveda" />
-                  </h3>
-
-                  <div className="space-y-4 text-sm text-amber-500/80">
-                    <p className="flex items-start gap-2 border-l-2 border-amber-500/30 pl-4 py-1 hover:border-amber-400 transition-colors">
-                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
-                      Mahamahopadhyaya Sheshadrinatha Sastrigal
-                    </p>
-                    <p className="flex items-start gap-2 border-l-2 border-amber-500/30 pl-4 py-1 hover:border-amber-400 transition-colors">
-                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
-                      Veda Ratnam Dr Ramesh Dravid Ghanapathi (Kashi)
-                    </p>
-                    <p className="flex items-start gap-2 border-l-2 border-amber-500/30 pl-4 py-1 hover:border-amber-400 transition-colors">
-                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-amber-600" />
-                      Rajesh Iyer
-                    </p>
-
-                    <div className="mt-6 p-4 bg-amber-500/5 border border-amber-500/20 rounded">
-                      <p className="text-amber-400">
-                        <span className="font-bold opacity-70">LOCATION_NODE:</span> Shankara Shanti Nilayam Patashala, Kalady, Kerala
-                      </p>
-                      <p className="text-amber-500/50 text-xs mt-2 italic">
-                        [TRANSMISSION: Online post-Covid adaptation]
-                      </p>
-                    </div>
-                  </div>
+      <div className="mt-8 space-y-5">
+        {studies.map((study, i) => (
+          <Reveal key={study.title} delay={i * 0.06}>
+            <Panel interactive className="group overflow-hidden">
+              <div className="grid gap-0 md:grid-cols-[minmax(0,16rem)_1fr]">
+                <div className="relative aspect-[4/3] overflow-hidden border-b border-primary-green/15 md:aspect-auto md:border-b-0 md:border-r">
+                  <img
+                    src={study.image}
+                    alt={study.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover opacity-70 transition-[transform,opacity] duration-700 group-hover:scale-105 group-hover:opacity-95"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-base-bg/80 to-transparent" />
                 </div>
 
-                {/* Holographic Image Representation */}
-                <div className="w-full md:w-64 shrink-0 relative group">
-                  <div className="absolute inset-0 bg-amber-500/20 blur-xl group-hover:bg-amber-400/30 transition-all z-0" />
-                  <div className="relative z-10 w-full aspect-square border-2 border-amber-500/30 bg-black/50 p-2 transform rotate-1 hover:rotate-0 transition-transform">
-                    <img
-                      src="./brahm.png"
-                      alt="Ancient wisdom encrypted"
-                      className="w-full h-full object-cover filter contrast-[1.5] brightness-75 sepia hue-rotate-[15deg] saturate-200 mix-blend-screen opacity-80"
-                    />
-                    <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(245,158,11,0.1)_50%)] bg-[length:100%_4px] pointer-events-none" />
-                  </div>
-                  <div className="text-center mt-3 text-xs text-amber-600 tracking-widest">
-                    [VISUAL_DATA_DECRYPTED]
+                <div className="p-5 sm:p-7">
+                  <Chip tone="blue" className="mb-3">
+                    <BookOpen className="h-3 w-3" aria-hidden="true" />
+                    {study.file}
+                  </Chip>
+
+                  <h2 className="font-display text-fluid-lg font-bold uppercase tracking-wide text-text-base">
+                    {study.title}
+                  </h2>
+
+                  <p className="mt-3 max-w-2xl font-sans text-fluid-sm leading-relaxed text-text-muted text-pretty">
+                    {study.body}
+                  </p>
+
+                  <div className="mt-5 border-t border-primary-green/10 pt-4">
+                    <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-primary-green">
+                      Studied under
+                    </p>
+                    <ul className="space-y-1.5">
+                      {study.teachers.map((teacher) => (
+                        <li key={teacher} className="flex items-start gap-2">
+                          <User className="mt-0.5 h-3 w-3 shrink-0 text-text-muted" aria-hidden="true" />
+                          <span className="font-sans text-fluid-sm text-text-base/85">{teacher}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="mt-3 flex items-start gap-2 font-sans text-fluid-xs text-text-muted">
+                      <MapPin className="mt-0.5 h-3 w-3 shrink-0" aria-hidden="true" />
+                      <span>
+                        {study.location}
+                        <span className="block italic text-text-muted/70">{study.note}</span>
+                      </span>
+                    </p>
                   </div>
                 </div>
-
               </div>
-            </div>
-          </motion.div>
-
-          {/* Sanskrit Grammar Scroll */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative p-1 bg-gradient-to-b from-orange-500/20 to-transparent clip-path-cyber-card"
-          >
-            <div className="absolute top-0 right-0 w-8 h-px bg-orange-500 shadow-[0_0_10px_#f97316]" />
-            <div className="absolute top-0 right-0 w-px h-8 bg-orange-500 shadow-[0_0_10px_#f97316]" />
-            <div className="bg-black/60 backdrop-blur-md p-8 border border-orange-500/10 h-full w-full relative">
-              <div className="flex flex-col md:flex-row-reverse gap-8 items-start">
-
-                <div className="flex-1 w-full text-right">
-                  <div className="inline-block px-3 py-1 bg-orange-500/10 border border-orange-500/30 text-orange-500 text-xs font-bold tracking-widest mb-6">
-                    <Terminal className="inline w-3 h-3 mr-2" />
-                    FILE: SANSKRIT_GRAMMAR.sys
-                  </div>
-
-                  <h3 className="text-2xl font-bold mb-6 text-orange-400">
-                    <ScrambleText text="Sanskrit Language" />
-                  </h3>
-
-                  <div className="space-y-4 text-sm text-orange-500/80 flex flex-col items-end">
-                    <p className="flex items-start justify-end gap-2 border-r-2 border-orange-500/30 pr-4 py-1 hover:border-orange-400 transition-colors w-full text-right">
-                      Swami Guhatmananda Saraswati
-                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-orange-600" />
-                    </p>
-                    <p className="flex items-start justify-end gap-2 border-r-2 border-orange-500/30 pr-4 py-1 hover:border-orange-400 transition-colors w-full text-right">
-                      Brahmaleen Swami Omakarananda Brahmendra Saraswati
-                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-orange-600" />
-                    </p>
-                    <p className="flex items-start justify-end gap-2 border-r-2 border-orange-500/30 pr-4 py-1 hover:border-orange-400 transition-colors w-full text-right">
-                      Rajesh Iyer
-                      <Code className="w-4 h-4 shrink-0 mt-0.5 text-orange-600" />
-                    </p>
-                  </div>
-                </div>
-
-                {/* Holographic Image Representation */}
-                <div className="w-full md:w-64 shrink-0 relative group">
-                  <div className="absolute inset-0 bg-orange-500/20 blur-xl group-hover:bg-orange-400/30 transition-all z-0" />
-                  <div className="relative z-10 w-full aspect-square border-2 border-orange-500/30 bg-black/50 p-2 transform -rotate-1 hover:rotate-0 transition-transform">
-                    <img
-                      src="./sans.png"
-                      alt="Sanskrit encrypted"
-                      className="w-full h-full object-cover filter contrast-[1.5] brightness-75 sepia hue-rotate-[-10deg] saturate-200 mix-blend-screen opacity-80"
-                    />
-                    <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(249,115,22,0.1)_50%)] bg-[length:100%_4px] pointer-events-none" />
-                  </div>
-                  <div className="text-center mt-3 text-xs text-orange-600 tracking-widest">
-                    [LITERAL_MAPPING_EXTRACTED]
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </motion.div>
-
-        </div>
-
-        {/* Footer quote */}
-        <div className="text-center mt-20 pt-8 border-t border-amber-500/20 max-w-3xl w-full">
-          <p className="text-xl md:text-2xl text-amber-500 mb-2 font-bold drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">
-            <ScrambleText text="गुरुर्ब्रह्मा गुरुर्विष्णुः गुरुर्देवो महेश्वरः" />
-          </p>
-          <p className="text-sm text-amber-600/60 uppercase tracking-widest mt-4">
-            [TRANSLATION: "The Guru is Brahma, the Guru is Vishnu, the Guru is Maheshvara"]
-          </p>
-        </div>
-
+            </Panel>
+          </Reveal>
+        ))}
       </div>
-    </div>
-  );
-};
+
+      <Reveal delay={0.1}>
+        <div className="mt-12 border-t border-primary-green/15 pt-8 text-center">
+          <p className="font-sanskrit text-fluid-xl leading-relaxed text-primary-green glow-text">
+            गुरुर्ब्रह्मा गुरुर्विष्णुः गुरुर्देवो महेश्वरः
+          </p>
+          <p className="mt-3 font-sans text-fluid-sm italic text-text-muted">
+            “The teacher is Brahma, the teacher is Vishnu, the teacher is Maheshvara.”
+          </p>
+        </div>
+      </Reveal>
+    </Section>
+  </>
+);
 
 export default VedicLearnings;

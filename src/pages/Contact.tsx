@@ -1,158 +1,233 @@
-import { MessageCircle, Github, Linkedin, Instagram, Facebook, Terminal, Shield, Lock, Send, Network } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import { ScrambleText } from '@/components/ScrambleText';
+import {
+  Mail,
+  Github,
+  Linkedin,
+  MapPin,
+  Send,
+  Copy,
+  Check,
+  Download,
+  Loader2,
+  Clock,
+} from 'lucide-react';
+import { usePortfolio } from '@/context/PortfolioContext';
+import { Section, SectionHeading, Panel, Reveal, Chip } from '@/components/primitives';
+import { downloadVCard } from '@/components/CommandPalette';
+import Seo from '@/components/Seo';
+import { toast } from 'sonner';
 
-const socialLinks = [
-  { name: 'GITHUB', icon: Github, href: 'https://github.com/aceandro2812', color: 'primary' },
-  { name: 'LINKEDIN', icon: Linkedin, href: 'https://linkedin.com/jatin-iyer', color: 'accent' },
-  { name: 'INSTAGRAM', icon: Instagram, href: 'https://instagram.com', color: 'secondary' },
-  { name: 'FACEBOOK', icon: Facebook, href: 'https://facebook.com', color: 'primary' },
-] as const;
+type Status = 'idle' | 'sending' | 'sent';
 
 const Contact = () => {
-  const [isEncrypting, setIsEncrypting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<null | 'success'>(null);
+  const { contact, socialLinks, personalInfo } = usePortfolio();
+  const [status, setStatus] = useState<Status>('idle');
+  const [copied, setCopied] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsEncrypting(true);
+  const formspreeId = import.meta.env.VITE_FORMSPREE_ID as string | undefined;
 
-    // Simulate encryption and sending
-    setTimeout(() => {
-      setIsEncrypting(false);
-      setSubmitStatus('success');
-      setTimeout(() => setSubmitStatus(null), 3000);
-    }, 2500);
+  /**
+   * The old form was theatre: it faked a 2.5s "encrypting" delay and threw the
+   * message away. Now it either POSTs to Formspree (when configured) or falls
+   * back to a prefilled mailto, so a message always reaches an inbox.
+   */
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const name = String(data.get('name') ?? '');
+    const email = String(data.get('email') ?? '');
+    const message = String(data.get('message') ?? '');
+
+    setStatus('sending');
+
+    if (formspreeId) {
+      try {
+        const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: data,
+        });
+        if (!response.ok) throw new Error('Form service rejected the request');
+        setStatus('sent');
+        form.reset();
+        toast.success('Message sent — Jatin will reply soon.');
+        return;
+      } catch {
+        toast.error('Sending failed. Opening your mail client instead.');
+      }
+    }
+
+    // Fallback: hand off to the visitor's mail client with everything filled in.
+    const subject = encodeURIComponent(`Portfolio enquiry from ${name || 'a visitor'}`);
+    const body = encodeURIComponent(`${message}\n\n—\n${name}\n${email}`);
+    window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
+    setStatus('sent');
+    form.reset();
+    setTimeout(() => setStatus('idle'), 4000);
   };
 
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(contact.email);
+      setCopied(true);
+      toast.success('Email copied');
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast.error(`Copy blocked — the address is ${contact.email}`);
+    }
+  };
+
+  const inputClass =
+    'w-full border border-primary-green/20 bg-black/50 px-3 py-2.5 font-sans text-fluid-sm text-text-base outline-none transition-colors placeholder:text-text-muted/50 focus:border-primary-green';
+
   return (
-    <div className="container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative min-h-[calc(100vh-theme(space.14))] font-mono pb-32">
-      {/* Background patterns */}
-      <div className="absolute inset-0 pattern-grid opacity-10"></div>
+    <>
+      <Seo
+        title="Contact"
+        description="Get in touch with Jatin Iyer about AI/ML engineering roles, agentic system builds or collaborations. Usually replies within a day."
+        path="/contact"
+      />
 
-      <div className="max-w-5xl mx-auto relative z-10 pt-16">
-        <div className="text-center mb-16">
-          <div className="flex flex-col items-center justify-center gap-2 mb-6">
-            <div className="flex items-center gap-3">
-              <Lock className="w-8 h-8 text-funky-accent animate-pulse" />
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-widest text-text-base drop-shadow-[0_0_10px_rgba(255,0,60,0.4)]">
-                <ScrambleText text="SECURE_CHANNEL" />
-              </h1>
-            </div>
-            <span className="text-xl text-cyber-blue opacity-80 tracking-widest font-bold">[CONTACT_ME]</span>
-          </div>
-          <p className="text-text-muted text-sm sm:text-base max-w-2xl mx-auto uppercase tracking-widest border-b border-funky-accent/20 pb-4 inline-block">
-            [ESTABLISHING_ENCRYPTED_UPLINK...]
-          </p>
-        </div>
+      <Section className="py-14 sm:py-20">
+        <SectionHeading
+          as="h1"
+          eyebrow="Get in touch"
+          title="Let's talk about what you're building"
+          subtitle="Roles, collaborations, or just a hard problem you want a second opinion on. I read everything and reply to anything that isn't a template."
+        />
 
-        <div className="grid md:grid-cols-2 gap-12 mt-8">
-
-          {/* Left Column: Form */}
-          <div className="cyber-card bg-black/50 border border-funky-accent/50 p-8 shadow-[0_0_20px_rgba(255,0,60,0.15)] relative">
-            <div className="absolute top-0 right-0 p-2 text-xs text-funky-accent bg-funky-accent/10 border-b border-l border-funky-accent/50 flex items-center gap-2">
-              <Shield className="w-3 h-3" />
-              E2E ENCRYPTION ACTIVE
-            </div>
-
-            <h2 className="text-xl font-bold text-funky-accent mb-6 flex items-center gap-2">
-              <Terminal className="w-5 h-5" />
-              TRANSMIT_MESSAGE
-            </h2>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-xs text-text-muted uppercase tracking-widest">IDENTIFICATION_STRING [NAME]</label>
-                <input
-                  type="text"
-                  required
-                  className="w-full bg-black border-2 border-primary-green/20 focus:border-primary-green text-primary-green p-3 outline-none transition-colors"
-                  placeholder="e.g. AGENT_007"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs text-text-muted uppercase tracking-widest">RETURN_NODE [EMAIL]</label>
-                <input
-                  type="email"
-                  required
-                  className="w-full bg-black border-2 border-primary-green/20 focus:border-primary-green text-primary-green p-3 outline-none transition-colors"
-                  placeholder="e.g. intel@mi6.gov"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs text-text-muted uppercase tracking-widest">ENCRYPTED_PAYLOAD [MESSAGE]</label>
-                <textarea
-                  required
-                  rows={4}
-                  className="w-full bg-black border-2 border-primary-green/20 focus:border-primary-green text-primary-green p-3 outline-none transition-colors resize-none"
-                  placeholder="Enter classified intel here..."
-                ></textarea>
-              </div>
-
-              <Button
-                type="submit"
-                disabled={isEncrypting || submitStatus === 'success'}
-                className="w-full h-12 cyber-card bg-funky-accent/20 hover:bg-funky-accent text-funky-accent hover:text-white border border-funky-accent transition-all uppercase tracking-widest font-bold grid place-items-center"
-              >
-                {isEncrypting ? (
-                  <ScrambleText text="[ENCRYPTING_AND_SENDING...]" />
-                ) : submitStatus === 'success' ? (
-                  "TRANSMISSION_SUCCESSFUL"
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <Send className="w-4 h-4" /> EXECUTE_TRANSMISSION
-                  </span>
-                )}
-              </Button>
-            </form>
-          </div>
-
-          {/* Right Column: External Nodes */}
-          <div className="space-y-8 flex flex-col justify-center">
-            <div>
-              <h2 className="text-sm font-bold text-cyber-blue mb-4 flex items-center gap-2 border-b border-cyber-blue/20 pb-2 inline-flex uppercase">
-                <Network className="w-4 h-4" />
-                EXTERNAL_NODES
+        <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
+          {/* Form */}
+          <Reveal>
+            <Panel className="p-5 sm:p-7">
+              <h2 className="font-display text-fluid-base font-bold uppercase tracking-wide text-text-base">
+                Send a message
               </h2>
+              <p className="mt-1 font-sans text-fluid-sm text-text-muted">
+                {formspreeId
+                  ? 'Goes straight to my inbox.'
+                  : 'Opens your mail app with everything prefilled — nothing is stored here.'}
+              </p>
 
-              <div className="flex flex-col gap-4 mt-6">
-                {socialLinks.map((social) => {
-                  const Icon = social.icon;
-                  return (
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                <div>
+                  <label htmlFor="name" className="mb-1.5 block text-fluid-xs uppercase tracking-wider text-text-muted">
+                    Your name
+                  </label>
+                  <input id="name" name="name" type="text" required autoComplete="name" className={inputClass} placeholder="Ada Lovelace" />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="mb-1.5 block text-fluid-xs uppercase tracking-wider text-text-muted">
+                    Your email
+                  </label>
+                  <input id="email" name="email" type="email" required autoComplete="email" className={inputClass} placeholder="you@company.com" />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="mb-1.5 block text-fluid-xs uppercase tracking-wider text-text-muted">
+                    Message
+                  </label>
+                  <textarea id="message" name="message" required rows={5} className={`${inputClass} resize-y`} placeholder="What are you working on?" />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={status !== 'idle'}
+                  className="cyber-card inline-flex h-12 w-full items-center justify-center gap-2 border border-primary-green bg-primary-green text-fluid-sm font-bold uppercase tracking-wider text-black transition-colors hover:bg-primary-green/85 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {status === 'sending' && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
+                  {status === 'sent' && <Check className="h-4 w-4" aria-hidden="true" />}
+                  {status === 'idle' && <Send className="h-4 w-4" aria-hidden="true" />}
+                  {status === 'sending' ? 'Sending…' : status === 'sent' ? 'Message sent' : 'Send message'}
+                </button>
+
+                <p className="flex items-center gap-1.5 text-[11px] text-text-muted/70">
+                  <Clock className="h-3 w-3" aria-hidden="true" />
+                  Typical reply time: within one working day.
+                </p>
+              </form>
+            </Panel>
+          </Reveal>
+
+          {/* Direct channels */}
+          <Reveal delay={0.08}>
+            <div className="space-y-4">
+              <Panel className="p-5 sm:p-6">
+                <h2 className="font-display text-fluid-base font-bold uppercase tracking-wide text-text-base">
+                  Or reach me directly
+                </h2>
+
+                <div className="mt-4 space-y-2.5">
+                  <div className="flex items-center gap-3 border border-primary-green/15 bg-black/30 p-3">
+                    <Mail className="h-4 w-4 shrink-0 text-primary-green" aria-hidden="true" />
+                    <a href={`mailto:${contact.email}`} className="min-w-0 flex-1 truncate font-sans text-fluid-sm text-text-base hover:text-primary-green">
+                      {contact.email}
+                    </a>
+                    <button
+                      type="button"
+                      onClick={copyEmail}
+                      aria-label="Copy email address"
+                      className="shrink-0 text-text-muted transition-colors hover:text-primary-green"
+                    >
+                      {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                    </button>
+                  </div>
+
+                  {[
+                    { icon: Github, label: `github.com/${contact.github}`, href: socialLinks.github },
+                    { icon: Linkedin, label: 'LinkedIn profile', href: socialLinks.linkedin },
+                  ].map(({ icon: Icon, label, href }) => (
                     <a
-                      key={social.name}
-                      href={social.href}
+                      key={label}
+                      href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex border border-primary-green/30 bg-black/40 hover:bg-primary-green/10 hover:border-primary-green transition-all p-4 items-center gap-4 w-full md:w-5/6"
+                      className="flex items-center gap-3 border border-primary-green/15 bg-black/30 p-3 transition-colors hover:border-primary-green/50 hover:bg-primary-green/5"
                     >
-                      <div className="p-2 border border-primary-green/50 bg-black text-primary-green group-hover:scale-110 group-hover:bg-primary-green group-hover:text-black transition-all">
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <span className="text-text-base group-hover:text-primary-green transition-colors font-bold tracking-widest">
-                        {social.name}
+                      <Icon className="h-4 w-4 shrink-0 text-primary-green" aria-hidden="true" />
+                      <span className="min-w-0 flex-1 truncate font-sans text-fluid-sm text-text-base">
+                        {label}
                       </span>
-                      <div className="ml-auto w-2 h-2 bg-primary-green rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping" />
                     </a>
-                  );
-                })}
-              </div>
-            </div>
+                  ))}
 
-            <div className="p-6 bg-black/40 border border-cyber-blue/30 text-xs text-text-muted mt-8">
-              <p className="mb-2 font-bold text-cyber-blue">[SYSTEM_NOTICE]</p>
-              <p>All transited data is subject to protocol verification. Unauthorized access attempts will be logged and traced.</p>
-              <p className="mt-4 text-primary-green flex items-center gap-2">
-                <span className="w-2 h-2 bg-primary-green rounded-full animate-pulse inline-block" />
-                STATUS: READY AND LISTENING
-              </p>
-            </div>
-          </div>
+                  <div className="flex items-center gap-3 border border-primary-green/15 bg-black/30 p-3">
+                    <MapPin className="h-4 w-4 shrink-0 text-primary-green" aria-hidden="true" />
+                    <span className="font-sans text-fluid-sm text-text-base">{contact.location}</span>
+                  </div>
+                </div>
 
+                <button
+                  type="button"
+                  onClick={() => {
+                    downloadVCard();
+                    toast.success('Contact card saved');
+                  }}
+                  className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 border border-cyber-blue/40 text-fluid-xs font-bold uppercase tracking-wider text-cyber-blue transition-colors hover:bg-cyber-blue/10"
+                >
+                  <Download className="h-4 w-4" aria-hidden="true" />
+                  Save contact card (.vcf)
+                </button>
+              </Panel>
+
+              <Panel className="p-5 sm:p-6">
+                <Chip tone="green">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary-green motion-safe:animate-pulse" />
+                  {personalInfo.availability}
+                </Chip>
+                <p className="mt-3 font-sans text-fluid-sm leading-relaxed text-text-muted text-pretty">
+                  Best fit: applied AI / ML engineering, agentic systems, or GenAI product work.
+                  Happy to talk remote or Mumbai-based. If you're unsure whether your problem needs
+                  AI at all, that's a conversation I enjoy having.
+                </p>
+              </Panel>
+            </div>
+          </Reveal>
         </div>
-      </div>
-    </div>
+      </Section>
+    </>
   );
 };
 

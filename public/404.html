@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Rerouting…</title>
+    <script>
+      // GitHub Pages serves this file for any unknown path. A static host has no
+      // idea about client-side routes, so we stash the requested path in the
+      // query string and bounce to the SPA entry point, which restores it.
+      var l = window.location;
+      var path = l.pathname.replace(/^\/+/, '');
+      l.replace(
+        l.origin +
+          '/?spa-redirect=/' +
+          path.replace(/&/g, '~and~') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
